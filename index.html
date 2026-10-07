@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nanangslot168 🎰</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;
+  --surface:#13131a;
+  --surface2:#1a1a24;
+  --surface3:#22222f;
+  --border:#2a2a3a;
+  --border2:#3a3a50;
+  --text:#f0f0f5;
+  --text2:#9090aa;
+  --text3:#5a5a70;
+  --accent:#7c6af7;
+  --accent2:#5e4ee8;
+  --gold:#f5c842;
+  --gold2:#e8b020;
+  --green:#2ecc71;
+  --green2:#1a8a46;
+  --red:#e74c3c;
+  --red2:#a03030;
+  --radius:10px;
+  --radius2:14px;
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif}
+#app{max-width:420px;margin:0 auto;padding:16px;min-height:100vh}
+
+/* AUTH */
+.auth-wrap{padding-top:40px}
+.logo{text-align:center;margin-bottom:6px}
+.logo-icon{font-size:52px;display:block;margin-bottom:8px}
+.logo-title{font-size:28px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(90deg,#f5c842,#f07b1c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:13px;color:var(--text2);margin-top:4px}
+.tab-row{display:flex;gap:0;margin:24px 0 16px;background:var(--surface2);border-radius:var(--radius);padding:4px}
+.tab{flex:1;height:36px;border:none;background:transparent;color:var(--text2);font-size:14px;font-weight:500;cursor:pointer;border-radius:8px;transition:all .2s}
+.tab.active{background:var(--accent);color:#fff}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:20px}
+.form-group{margin-bottom:14px}
+.form-group label{font-size:12px;color:var(--text2);display:block;margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
+.form-group input{width:100%;height:42px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;padding:0 12px;outline:none;transition:border .2s}
+.form-group input:focus{border-color:var(--accent)}
+.form-group input::placeholder{color:var(--text3)}
+.err{font-size:12px;color:var(--red);margin-top:4px;min-height:16px}
+.suc{font-size:12px;color:var(--green);margin-top:4px;min-height:16px}
+.btn{width:100%;height:44px;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;letter-spacing:.2px}
+.btn:active{transform:scale(0.98)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-ghost:hover{background:var(--surface2);color:var(--text)}
+.bonus-note{text-align:center;margin-top:10px;font-size:12px;color:var(--green);padding:8px;background:#1a2a1a;border-radius:var(--radius);border:1px solid var(--green2)}
+
+/* GAME */
+.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.game-logo{font-size:20px;font-weight:700;background:linear-gradient(90deg,#f5c842,#f07b1c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.user-badge{font-size:12px;color:var(--text2);background:var(--surface2);padding:4px 10px;border-radius:20px;border:1px solid var(--border)}
+.bal-card{background:linear-gradient(135deg,#1a1640,#2a1f60);border:1px solid #4a3aaa;border-radius:var(--radius2);padding:18px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.bal-left .bal-label{font-size:11px;color:#9090cc;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.bal-left .bal-val{font-size:26px;font-weight:700;color:var(--gold)}
+.bal-icon{font-size:36px}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center}
+.stat-l{font-size:11px;color:var(--text3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.3px}
+.stat-v{font-size:18px;font-weight:600;color:var(--text)}
+
+/* SLOT MACHINE */
+.machine{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:16px;margin-bottom:12px}
+.machine-top{font-size:11px;color:var(--text3);text-align:center;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.reels{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
+.reel{width:90px;height:100px;background:var(--surface2);border:2px solid var(--border2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:46px;transition:border-color .3s;position:relative;overflow:hidden}
+.reel.win-glow{border-color:var(--gold);box-shadow:0 0 16px rgba(245,200,66,.3)}
+.reel.spinning{animation:reelSpin .12s ease-in-out infinite}
+@keyframes reelSpin{0%{transform:translateY(0)}33%{transform:translateY(-6px)}66%{transform:translateY(6px)}100%{transform:translateY(0)}}
+.win-badge{text-align:center;padding:10px 14px;border-radius:var(--radius);font-size:13px;font-weight:600;min-height:40px;display:flex;align-items:center;justify-content:center}
+.win-badge.idle{background:var(--surface2);color:var(--text3)}
+.win-badge.win{background:linear-gradient(135deg,#1a3a1a,#0a2a0a);color:var(--green);border:1px solid var(--green2);animation:winPulse .5s ease}
+.win-badge.lose{background:var(--surface2);color:var(--text2)}
+@keyframes winPulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+/* BET */
+.bet-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:16px;margin-bottom:12px}
+.bet-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.bet-chips{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.chip{flex:1;min-width:60px;height:36px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--accent);color:var(--text)}
+.chip.sel{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.bet-info{font-size:12px;color:var(--text3);margin-bottom:12px}
+.bet-info span{color:var(--text);font-weight:600}
+.spin-btn{width:100%;height:52px;border:none;border-radius:var(--radius);font-size:17px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:all .2s;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1000}
+.spin-btn:hover{opacity:.9;transform:translateY(-1px)}
+.spin-btn:active{transform:translateY(1px) scale(.99)}
+.spin-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.spin-err{font-size:12px;color:var(--red);text-align:center;margin-top:8px;min-height:16px}
+
+/* PAYTABLE */
+.pay-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:16px;margin-bottom:12px}
+.pay-title{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.pay-grid{display:grid;gap:6px}
+.pay-row{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:8px}
+.pay-syms{font-size:18px;letter-spacing:2px}
+.pay-name{font-size:12px;color:var(--text2);flex:1;margin-left:8px}
+.pay-mult{font-size:13px;font-weight:700;color:var(--gold)}
+
+.info-note{background:#1a1a10;border:1px solid #3a3a10;border-radius:var(--radius);padding:10px 12px;font-size:11px;color:#aaaa60;line-height:1.6;margin-bottom:12px}
+
+/* HISTORY */
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:16px;margin-bottom:12px}
+.hist-title{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.hist-list{display:grid;gap:4px;max-height:160px;overflow-y:auto}
+.hist-item{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:8px;font-size:12px}
+.hist-syms{font-size:14px;letter-spacing:1px}
+.hist-res.win{color:var(--green);font-weight:600}
+.hist-res.lose{color:var(--text3)}
+.hist-list::-webkit-scrollbar{width:4px}
+.hist-list::-webkit-scrollbar-track{background:transparent}
+.hist-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+.screen{display:none}
+.screen.active{display:block}
+.divider{height:1px;background:var(--border);margin:14px 0}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- AUTH SCREEN -->
+<div id="authScreen" class="screen active">
+  <div class="auth-wrap">
+    <div class="logo">
+      <span class="logo-icon">🎰</span>
+      <div class="logo-title">nanangslot168</div>
+      <div class="logo-sub">Daftar gratis dapat saldo 100.000!</div>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab active" id="tabLogin" onclick="switchTab('login')">Masuk</button>
+      <button class="tab" id="tabReg" onclick="switchTab('reg')">Daftar</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginForm" class="card">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="Masukkan username" autocomplete="username">
+        <div class="err" id="loginUserErr"></div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Masukkan password" autocomplete="current-password">
+        <div class="err" id="loginPassErr"></div>
+      </div>
+      <div class="err" id="loginGlobalErr"></div>
+      <div style="height:10px"></div>
+      <button class="btn btn-primary" onclick="doLogin()">Masuk Sekarang</button>
+    </div>
+
+        <label>Username</label>
+        <input type="text" id="regUser" placeholder="Buat username unik" autocomplete="username">
+        <div class="err" id="regUserErr"></div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="Minimal 4 karakter" autocomplete="new-password">
+        <div class="err" id="regPassErr"></div>
+      </div>
+      <div class="form-group">
+        <label>Konfirmasi Password</label>
+        <input type="password" id="regPass2" placeholder="Ulangi password" autocomplete="new-password">
+        <div class="err" id="regPass2Err"></div>
+      </div>
+      <div class="err" id="regGlobalErr"></div>
+      <div class="suc" id="regGlobalSuc"></div>
+      <div style="height:4px"></div>
+      <button class="btn btn-primary" onclick="doRegister()">Daftar Sekarang</button>
+      <div class="bonus-note" style="margin-top:12px">🎁 Bonus daftar: Saldo Rp 100.000 langsung masuk!</div>
+    </div>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="gameScreen" class="screen">
+  <div class="game-header">
+    <div class="game-logo">🎰 nanangslot168</div>
+    <div class="bal-icon">💰</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-l">Total Spin</div>
+      <div class="stat-v" id="statSpin">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-l">Total Menang</div>
+      <div class="stat-v" id="statWin">0</div>
+    </div>
+  </div>
+
+  <!-- SLOT MACHINE -->
+  <div class="machine">
+    <div class="machine-top">✦ Putar untuk menang ✦</div>
+    <div class="reels">
+      <div class="reel" id="r0">🎲</div>
+      <div class="reel" id="r1">🎲</div>
+      <div class="reel" id="r2">🎲</div>
+    </div>
+    <div class="win-badge idle" id="winBadge">Pilih taruhan dan putar gulungan!</div>
+  </div>
+
+  <!-- BET -->
+  <div class="bet-card">
+    <div class="spin-err" id="spinErr"></div>
+  </div>
+
+  <!-- PAYTABLE -->
+  <div class="pay-card">
+    <div class="pay-title">📋 Tabel Pembayaran</div>
+    <div class="pay-grid">
+      <div class="pay-row">
+        <span class="pay-syms">💎💎💎</span>
+        <span class="pay-name">Diamond Jackpot</span>
+        <span class="pay-mult">×20</span>
+      </div>
+      <div class="pay-row">
+        <span class="pay-syms">🍒🍒🍒</span>
+        <span class="pay-name">Cherry Bonus</span>
+        <span class="pay-mult">×10</span>
+      </div>
+      <div class="pay-row">
+        <span class="pay-syms">🍋🍋🍋</span>
+        <span class="pay-name">Lemon Jackpot</span>
+        <span class="pay-mult">×5</span>
+      </div>
+      <div class="pay-row">
+        <span class="pay-syms">🍇🍇🍇</span>
+        <span class="pay-name">Grape Bonus</span>
+        <span class="pay-mult">×4</span>
+      </div>
+      </div>
+      <div class="pay-row">
+        <span class="pay-syms">🎲🎲🎲</span>
+        <span class="pay-name">Lucky Dice</span>
+        <span class="pay-mult">×2</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="hist-card">
+    <div class="hist-title">🕓 Riwayat 10 Spin Terakhir</div>
+    <div class="hist-list" id="histList">
+      <div style="text-align:center;color:var(--text3);font-size:12px;padding:12px">Belum ada riwayat spin</div>
+    </div>
+  </div>
+
+  <div class="info-note">
+    ⚡ <b>Info:</b> RTP ~49% | Saldo min Rp 50 untuk spin | Peluang menang turun saat saldo &lt; 50.000 | Semua data tersimpan di browser kamu.
+  </div>
+
+  <button class="btn btn-ghost" style="margin-bottom:24px" onclick="doLogout()">🚪 Keluar dari Akun</button>
+</div>
+
+</div>
+
+<script>
+const SYMS = ['💎','🍒','🍋','🍇','🔔','⭐','🎲'];
+const WEIGHTS = [2, 5, 9, 11, 13, 13, 14];
+const MULTIPLIERS = {0:20, 1:10, 2:5, 3:4, 4:3, 5:2, 6:2};
+
+let betAmt = 50;
+let spinning = false;
+let session = null;
+
+function loadUsers() {
+  try { return JSON.parse(localStorage.getItem('sm_users') || '{}'); } catch(e) { return {}; }
+}
+
+function saveUsers(u) {
+  try { localStorage.setItem('sm_users', JSON.stringify(u)); } catch(e) {}
+}
+
+function loadSession() {
+  try { return localStorage.getItem('sm_session') || null; } catch(e) { return null; }
+}
+
+function saveSession(u) {
+  try { localStorage.setItem('sm_session', u || ''); } catch(e) {}
+function doRegister() {
+  const u = document.getElementById('regUser').value.trim();
+  const p = document.getElementById('regPass').value;
+  const p2 = document.getElementById('regPass2').value;
+  clearErr('regUserErr','regPassErr','regPass2Err','regGlobalErr');
+  document.getElementById('regGlobalSuc').textContent = '';
+  let ok = true;
+  const users = loadUsers();
+  if (!u) { setErr('regUserErr', 'Username tidak boleh kosong'); ok = false; }
+  else if (u.length < 3) { setErr('regUserErr', 'Username minimal 3 karakter'); ok = false; }
+  else if (users[u]) { setErr('regUserErr', 'Username sudah dipakai, coba lain'); ok = false; }
+  if (!p || p.length < 4) { setErr('regPassErr', 'Password minimal 4 karakter'); ok = false; }
+  if (p !== p2) { setErr('regPass2Err', 'Password tidak cocok'); ok = false; }
+  if (!ok) return;
+  users[u] = { pass: p, saldo: 100000, spin: 0, wins: 0, history: [] };
+  saveUsers(users);
+  document.getElementById('regGlobalSuc').textContent = '✅ Daftar berhasil! Silakan masuk.';
+  document.getElementById('regUser').value = '';
+  document.getElementById('regPass').value = '';
+  document.getElementById('regPass2').value = '';
+  setTimeout(() => switchTab('login'), 1400);
+}
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  clearErr('loginUserErr','loginPassErr','loginGlobalErr');
+  if (!u) { setErr('loginUserErr', 'Masukkan username'); return; }
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+function showGame() {
+  document.getElementById('authScreen').className = 'screen';
+  document.getElementById('gameScreen').className = 'screen active';
+  document.getElementById('greetUser').textContent = '👤 ' + session;
+  updateUI();
+  renderHistory();
+}
+
+function updateUI() {
+  const users = loadUsers();
+  const d = users[session];
+  if (!d) return;
+  document.getElementById('balDisplay').textContent = 'Rp ' + d.saldo.toLocaleString('id-ID');
+  document.getElementById('statSpin').textContent = d.spin;
+  document.getElementById('statWin').textContent = d.wins;
+}
+
+function setBet(v) {
+  betAmt = v;
+  document.getElementById('betLabel').textContent = 'Rp ' + v.toLocaleString('id-ID');
+  document.getElementById('jackpotLabel').textContent = 'Rp ' + (v * 20).toLocaleString('id-ID');
+  [50, 100, 500, 1000, 5000].forEach(val => {
+    const id = 'chip' + val;
+    const el = document.getElementById(id);
+    if (el) el.className = 'chip' + (val === v ? ' sel' : '');
+  });
+}
+
+function weightedRandom() {
+  const total = WEIGHTS.reduce((a, b) => a + b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < WEIGHTS.length; i++) {
+    r -= WEIGHTS[i];
+    if (r <= 0) return i;
+  }
+  return WEIGHTS.length - 1;
+}
+
+function renderHistory() {
+  const users = loadUsers();
+  const d = users[session];
+  if (!d) return;
+  const list = document.getElementById('histList');
+  const hist = d.history || [];
+  if (hist.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:12px">Belum ada riwayat spin</div>';
+    return;
+  document.getElementById('spinErr').textContent = '';
+
+  if (d.saldo < 50) {
+    document.getElementById('spinErr').textContent = '⚠️ Saldo tidak cukup! Minimum Rp 50 untuk spin.';
+    return;
+  }
+  if (d.saldo < betAmt) {
+    document.getElementById('spinErr').textContent = '⚠️ Saldo tidak cukup untuk taruhan Rp ' + betAmt.toLocaleString('id-ID');
+    return;
+  }
+
+  spinning = true;
+  document.getElementById('spinBtn').disabled = true;
+  document.getElementById('winBadge').className = 'win-badge idle';
+  document.getElementById('winBadge').textContent = '🎲 Memutar gulungan...';
+
+  const reels = [
+    document.getElementById('r0'),
+    document.getElementById('r1'),
+    document.getElementById('r2')
+  ];
+
+  reels.forEach(r => {
+    r.classList.remove('win-glow');
+    r.classList.add('spinning');
+  });
+
+  d.saldo -= betAmt;
+  d.spin++;
+  users[session] = d;
+  saveUsers(users);
+  updateUI();
+
+  await new Promise(res => setTimeout(res, 700));
+
+  // RTP logic: 49% base, drop ke 3% kalau saldo < 50000
+  const winRate = d.saldo < 50000 ? 0.03 : 0.49;
+  const willWin = Math.random() < winRate;
+
+  let result;
+  if (willWin) {
+    // Pilih simbol menang dengan weight tapi bias ke simbol kecil
+    // Diamond (idx 0) sangat jarang walau win state aktif
+    const winWeights = [1, 3, 8, 10, 12, 12, 14];
+    const tot = winWeights.reduce((a,b) => a+b, 0);
+    let r = Math.random() * tot;
+    let winIdx = 0;
+    for (let i = 0; i < winWeights.length; i++) {
+      r -= winWeights[i];
+      if (r <= 0) { winIdx = i; break; }
+    }
+    result = [winIdx, winIdx, winIdx];
+  } else {
+      result = [weightedRandom(), weightedRandom(), weightedRandom()];
+    } while (result[0] === result[1] && result[1] === result[2]);
+  }
+
+  // Stop reel satu per satu biar dramatis
+  reels[0].classList.remove('spinning');
+  reels[0].textContent = SYMS[result[0]];
+  await new Promise(res => setTimeout(res, 120));
+
+  reels[1].classList.remove('spinning');
+  reels[1].textContent = SYMS[result[1]];
+  await new Promise(res => setTimeout(res, 120));
+
+  reels[2].classList.remove('spinning');
+  reels[2].textContent = SYMS[result[2]];
+  await new Promise(res => setTimeout(res, 120));
+
+  const isWin = result[0] === result[1] && result[1] === result[2];
+  const freshUsers = loadUsers();
+  const fd = freshUsers[session];
+
+  const histEntry = {
+    syms: SYMS[result[0]] + SYMS[result[1]] + SYMS[result[2]],
+    bet: betAmt,
+    win: false,
+    prize: 0
+  };
+
+    document.getElementById('winBadge').textContent = '🎉 MENANG! +Rp ' + prize.toLocaleString('id-ID') + ' (×' + mult + ')';
+  } else {
+    document.getElementById('winBadge').className = 'win-badge lose';
+    document.getElementById('winBadge').textContent = '😔 Tidak menang kali ini. Coba lagi!';
+  }
+
+  if (!fd.history) fd.history = [];
+  fd.history.push(histEntry);
+  if (fd.history.length > 50) fd.history = fd.history.slice(-50);
+
+  freshUsers[session] = fd;
+  saveUsers(freshUsers);
+  updateUI();
+  renderHistory();
+
+  spinning = false;
+  document.getElementById('spinBtn').disabled = false;
+}
+
+// Auto login kalau ada session tersimpan
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = loadSession();
+  if (saved) {
+    const users = loadUsers();
+    if (users[saved]) {
+      session = saved;
+      showGame();
+      return;
+    }
+  }
+  // Default ke auth screen
+  document.getElementById('authScreen').className = 'screen active';
+});
+
+// Keyboard shortcut: Enter untuk spin waktu di game screen
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && session && !spinning) {
+    doSpin();
+  }
+});
+</script>
+</body>
+</html>
