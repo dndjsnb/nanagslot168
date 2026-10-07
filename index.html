@@ -475,10 +475,10 @@ const COLS = 5, ROWS = 6, TOTAL_CELLS = COLS * ROWS;
 const RATE_PILIHAN = [0.001, 0.002, 0.003, 0.0009];
 
 // Taruhan
-const BET_OPTIONS = [50, 100, 500, 1000, 5000];
+const BET_OPTIONS = [50, 100, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 500000, 1000000];
 
 // Bonus
-const DAILY_BONUS = 25000;
+const DAILY_BONUS = 500;
 const SCATTER_SYMBOL = '🔴';      // untuk Mahjong scatter
 const ZEUS_SCATTER = '⚡';        // untuk Zeus scatter
 const FREE_SPIN_AWARDS = 10;
@@ -1123,7 +1123,7 @@ async function putar() {
     winBadge.className = 'win-badge lose';
     winBadge.textContent = (permainanSekarang === 'zeus'
       ? '😔 Zeus belum tersenyum. Coba lagi!'
-      : '😔 Ubin belum nyambung. Coba lagi!') + rateInfo;
+      : '😔 Ubin belum nyambung. Coba lagi!');
     if (suaraAktif) suaraKalah();
   }
 
