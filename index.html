@@ -90,7 +90,6 @@ body::before{
 .machine{background:linear-gradient(180deg,var(--surface) 0%,var(--bg2) 100%);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .machine-top{font-size:10px;color:var(--gold);text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:2px;font-weight:700}
 
-/* ============ GRID DENGAN KOLOM ============ */
 .grid-wrap{position:relative;padding:4px 0;margin-bottom:10px}
 .grid{
   display:grid;
@@ -120,7 +119,6 @@ body::before{
   transition:transform .2s, box-shadow .2s, opacity .2s;
 }
 
-/* SPIN */
 .cell.spin{animation:cellSpin .12s ease-in-out infinite}
 @keyframes cellSpin{
   0%{transform:translateY(0);opacity:.5}
@@ -128,7 +126,6 @@ body::before{
   100%{transform:translateY(0);opacity:.5}
 }
 
-/* GLOW sebelum pecah */
 .cell.glow{
   box-shadow:0 0 16px rgba(255,210,63,.9),inset 0 0 10px rgba(255,210,63,.4);
   border-color:var(--gold);
@@ -140,7 +137,6 @@ body::before{
   75%{transform:translate(2px,0) scale(1.05)}
 }
 
-/* PECAH */
 .cell.tumble{
   animation:pecah .3s ease forwards;
 }
@@ -150,7 +146,6 @@ body::before{
   100%{transform:scale(0);opacity:0}
 }
 
-/* JATUH DARI ATAS */
 .cell.fall{
   animation:jatuh .35s cubic-bezier(.5,1.5,.5,1) forwards;
 }
@@ -161,7 +156,6 @@ body::before{
   100%{transform:translateY(0)}
 }
 
-/* ISI ULANG */
 .cell.refill{
   animation:refillIn .35s ease;
 }
@@ -170,7 +164,6 @@ body::before{
   100%{transform:translateY(0);opacity:1}
 }
 
-/* SCATTER */
 .cell.scatter{
   background:linear-gradient(135deg,#4a1010,#8a2020);
   border:1px solid var(--red);
@@ -182,7 +175,6 @@ body::before{
   50%{box-shadow:0 0 22px rgba(255,59,48,1)}
 }
 
-/* PARTIKEL */
 .partikel{
   position:absolute;
   width:6px;height:6px;
@@ -469,14 +461,13 @@ const MJ_PAY = {0:5, 1:3, 2:2, 3:1.5, 4:1.2, 5:1, 6:0.8, 7:0.6, 8:0.5, 9:0.4};
 
 const COLS = 5, ROWS = 6, TOTAL_CELLS = COLS * ROWS;
 
-/* RTP 15%: peluang menang ~6% */
 const RATE_PILIHAN = [0.04, 0.05, 0.06, 0.06, 0.07, 0.08];
 const MAX_MULT = 10;
 const MAX_TUMBLE = 5;
 
 const BET_OPTIONS = [50, 100, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 500000, 1000000];
 
-const DAILY_BONUS = 500;
+const DAILY_BONUS = 25000;
 const FREE_SPIN_AWARDS = 10;
 
 /* ================= AUTO SPIN ================= */
@@ -498,7 +489,6 @@ let suaraAktif = true;
 let freeSpinSisa = 0;
 let freeSpinTotalMenang = 0;
 
-/* Grid state: array [col][row] */
 let gridState = [];
 
 /* ================= WEB AUDIO ================= */
@@ -677,7 +667,6 @@ function renderGridDariState() {
 
 /* ================= CARI SIMBOL MENANG ================= */
 function cariMenang() {
-  // Hitung frekuensi semua simbol di grid
   const freq = {};
   for (let c = 0; c < COLS; c++) {
     for (let r = 0; r < ROWS; r++) {
@@ -695,7 +684,6 @@ function cariMenang() {
   }
   if (bestSym < 0) return null;
 
-  // Kumpulkan posisi simbol menang
   const posisi = [];
   for (let c = 0; c < COLS; c++) {
     for (let r = 0; r < ROWS; r++) {
@@ -724,7 +712,6 @@ function buatPartikel(cell) {
 async function animasiPecahDanJatuh(hasilMenang) {
   const { posisi } = hasilMenang;
 
-  // 1. GLOW + GETAR
   posisi.forEach(({c, r}) => {
     const cell = document.getElementById('cell-' + c + '-' + r);
     if (cell) cell.classList.add('glow');
@@ -732,7 +719,6 @@ async function animasiPecahDanJatuh(hasilMenang) {
   if (suaraAktif) suaraPecah();
   await tunggu(400);
 
-  // 2. PECAH + partikel
   posisi.forEach(({c, r}) => {
     const cell = document.getElementById('cell-' + c + '-' + r);
     if (cell) {
@@ -743,27 +729,21 @@ async function animasiPecahDanJatuh(hasilMenang) {
   });
   await tunggu(350);
 
-  // 3. HAPUS simbol dari grid state
   posisi.forEach(({c, r}) => { gridState[c][r] = null; });
 
-  // 4. JATUH: tiap kolom, geser simbol ke bawah
   const weights = permainanSekarang === 'zeus' ? ZEUS_WEIGHTS : MJ_WEIGHTS;
   for (let c = 0; c < COLS; c++) {
-    // Ambil simbol yang masih ada (bukan null), dari bawah ke atas
     const sisa = [];
     for (let r = ROWS - 1; r >= 0; r--) {
       if (gridState[c][r] !== null) sisa.push(gridState[c][r]);
     }
-    // Isi ulang dari atas dengan simbol baru
     const baru = [];
     const kosong = ROWS - sisa.length;
     for (let i = 0; i < kosong; i++) baru.push(acakBerbobot(weights));
-    // Susun ulang: baru di atas, sisa di bawah
     const kolomBaru = [...baru, ...sisa.reverse()];
     gridState[c] = kolomBaru;
   }
 
-  // 5. RENDER ulang + animasi jatuh
   if (suaraAktif) suaraJatuh();
   const syms = permainanSekarang === 'zeus' ? ZEUS_SYMS : MJ_SYMS;
   for (let c = 0; c < COLS; c++) {
@@ -830,32 +810,26 @@ async function putar() {
 
   if (suaraAktif) suaraSpin();
 
-  // SPIN awalnya
   const gridEl = document.getElementById('grid');
   const cells = gridEl.querySelectorAll('.cell');
   cells.forEach(c => c.classList.add('spin'));
   await tunggu(800);
   cells.forEach(c => c.classList.remove('spin'));
 
-  // TENTUKAN MENANG/KALAH
   const rateMenang = pilihRate();
   const MENANG = Math.random() < rateMenang;
 
-  // ISI grid dengan hasil
   const weights = permainanSekarang === 'zeus' ? ZEUS_WEIGHTS : MJ_WEIGHTS;
   const minWin = permainanSekarang === 'zeus' ? 8 : 3;
 
   if (MENANG) {
-    // Bikin grid yang pasti menang
     const winSymbol = acakBerbobot(weights.slice(0, 5));
     const winCount = minWin + Math.floor(Math.random() * (minWin === 8 ? 5 : 3));
 
-    // Kosongkan dulu
     for (let c = 0; c < COLS; c++) {
       gridState[c] = [];
       for (let r = 0; r < ROWS; r++) gridState[c][r] = acakBerbobot(weights);
     }
-    // Tempatkan simbol menang
     let placed = 0;
     while (placed < winCount) {
       const cc = Math.floor(Math.random() * COLS);
@@ -865,7 +839,6 @@ async function putar() {
         placed++;
       }
     }
-    // Scatter
     if (Math.random() < 0.15) {
       for (let i = 0; i < 4; i++) {
         const cc = Math.floor(Math.random() * COLS);
@@ -874,7 +847,6 @@ async function putar() {
       }
     }
   } else {
-    // Grid kalah: acak, pastikan tidak ada yang menang
     let attempts = 0;
     do {
       for (let c = 0; c < COLS; c++) {
@@ -890,7 +862,6 @@ async function putar() {
   renderGridDariState();
   await tunggu(200);
 
-  // TUMBLE LOOP
   let totalHadiah = 0;
   let totalMult = 0;
   let tumbleKe = 0;
@@ -903,7 +874,6 @@ async function putar() {
     tumbleKe++;
     await animasiPecahDanJatuh(hasilMenang);
 
-    // Hitung hadiah tumble ini
     const payTable = permainanSekarang === 'zeus' ? ZEUS_PAY : MJ_PAY;
     const baseMultiplier = payTable[hasilMenang.winSymbol] || 0.4;
     const minWinCek = permainanSekarang === 'zeus' ? 8 : 3;
@@ -914,7 +884,6 @@ async function putar() {
     totalHadiah += Math.round(taruhan * mult);
   }
 
-  // Cek scatter untuk free spin
   let scatterCount = 0;
   for (let c = 0; c < COLS; c++) {
     for (let r = 0; r < ROWS; r++) {
@@ -934,7 +903,6 @@ async function putar() {
     suaraScatter();
   }
 
-  // Update saldo & riwayat
   const freshUsers = muatPengguna();
   const fd = freshUsers[sesi];
   const entriRiwayat = {
@@ -1151,6 +1119,188 @@ function tembakKonfeti() {
     document.body.appendChild(c);
     setTimeout(() => c.remove(), 3000);
   }
+}
+
+/* ================= AUTH ================= */
+function prosesDaftar() {
+  bersihkanErr('regUserErr','regPassErr','regPass2Err','regGlobalErr');
+  document.getElementById('regGlobalSuc').textContent = '';
+
+  const user = document.getElementById('regUser').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const pass2 = document.getElementById('regPass2').value;
+
+  let valid = true;
+  if (!user) { setErr('regUserErr', 'Nama pengguna wajib diisi'); valid = false; }
+  else if (user.length < 3) { setErr('regUserErr', 'Minimal 3 karakter'); valid = false; }
+  else if (!/^[a-zA-Z0-9_]+$/.test(user)) { setErr('regUserErr', 'Hanya huruf, angka, underscore'); valid = false; }
+
+  if (!pass) { setErr('regPassErr', 'Kata sandi wajib diisi'); valid = false; }
+  else if (pass.length < 4) { setErr('regPassErr', 'Minimal 4 karakter'); valid = false; }
+
+  if (pass !== pass2) { setErr('regPass2Err', 'Kata sandi tidak cocok'); valid = false; }
+
+  if (!valid) return;
+
+  const users = muatPengguna();
+  if (users[user]) { setErr('regUserErr', 'Nama pengguna sudah dipakai'); return; }
+
+  users[user] = {
+    pass: pass,
+    saldo: 100000,
+    spin: 0,
+    wins: 0,
+    totalBet: 0,
+    totalWin: 0,
+    history: [],
+    lastDaily: 0
+  };
+  simpanPengguna(users);
+  document.getElementById('regGlobalSuc').textContent = '✅ Berhasil! Saldo Rp 100.000 sudah masuk.';
+  tampilkanNotif('🎉 Pendaftaran berhasil!');
+
+  setTimeout(() => {
+    sesi = user;
+    simpanSesi(user);
+    tampilkanPermainan();
+  }, 800);
+}
+
+function prosesMasuk() {
+  bersihkanErr('loginUserErr','loginPassErr','loginGlobalErr');
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value;
+
+  if (!user) { setErr('loginUserErr', 'Nama pengguna wajib diisi'); return; }
+  if (!pass) { setErr('loginPassErr', 'Kata sandi wajib diisi'); return; }
+
+  const users = muatPengguna();
+  if (!users[user]) { setErr('loginGlobalErr', 'Akun tidak ditemukan'); return; }
+  if (users[user].pass !== pass) { setErr('loginGlobalErr', 'Kata sandi salah'); return; }
+
+  sesi = user;
+  simpanSesi(user);
+  tampilkanPermainan();
+}
+
+/* ================= TAMPILKAN GAME ================= */
+function tampilkanPermainan() {
+  document.getElementById('authScreen').className = 'screen';
+  document.getElementById('gameScreen').className = 'screen active';
+  gambarGridKosong();
+  perbaruiUI();
+  renderRiwayat();
+  cekDailyBonus();
+  document.getElementById('greetUser').textContent = '👤 ' + sesi;
+}
+
+/* ================= UI ================= */
+function perbaruiUI() {
+  if (!sesi) return;
+  const users = muatPengguna();
+  const d = users[sesi];
+  if (!d) return;
+  document.getElementById('balDisplay').textContent = formatRp(d.saldo);
+  document.getElementById('statSpin').textContent = d.spin || 0;
+  document.getElementById('statWin').textContent = d.wins || 0;
+  const rtp = d.totalBet > 0 ? ((d.totalWin / d.totalBet) * 100).toFixed(1) : '0';
+  document.getElementById('statRtp').textContent = rtp + '%';
+  document.getElementById('betLabel').textContent = formatRp(taruhan);
+  document.getElementById('jackpotLabel').textContent = formatRp(taruhan * MAX_MULT);
+  const lv = Math.floor((d.spin || 0) / 20) + 1;
+  document.getElementById('levelBadge').textContent = 'Lv.' + lv;
+}
+
+function renderRiwayat() {
+  if (!sesi) return;
+  const users = muatPengguna();
+  const d = users[sesi];
+  const list = document.getElementById('histList');
+  if (!d || !d.history || d.history.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:11px;padding:10px">Belum ada riwayat</div>';
+    return;
+  }
+  list.innerHTML = d.history.slice(-10).reverse().map(h => `
+    <div class="hist-item ${h.win ? 'win' : ''}">
+      <span>${h.syms}</span>
+      <span>${formatRp(h.bet)}</span>
+      <span class="hist-res ${h.win ? 'win' : 'lose'}">${h.win ? '+' + formatRp(h.prize) : '-' + formatRp(h.bet)}</span>
+    </div>
+  `).join('');
+}
+
+/* ================= TARUHAN ================= */
+function setTaruhan(nilai) {
+  if (sedangPutar || autoSpinAktif) return;
+  taruhan = nilai;
+  BET_OPTIONS.forEach(v => {
+    const el = document.getElementById('chip' + v);
+    if (el) el.className = 'chip' + (v === nilai ? ' sel' : '');
+  });
+  document.getElementById('betLabel').textContent = formatRp(taruhan);
+  document.getElementById('jackpotLabel').textContent = formatRp(taruhan * MAX_MULT);
+  suaraKlik();
+}
+
+/* ================= DAILY ================= */
+function cekDailyBonus() {
+  if (!sesi) return;
+  const users = muatPengguna();
+  const d = users[sesi];
+  if (!d) return;
+  const now = Date.now();
+  const btn = document.getElementById('dailyBtn');
+  if (!d.lastDaily || now - d.lastDaily > 86400000) {
+    btn.disabled = false;
+    btn.textContent = 'KLAIM';
+  } else {
+    btn.disabled = true;
+    const sisa = 86400000 - (now - d.lastDaily);
+    const jam = Math.floor(sisa / 3600000);
+    const menit = Math.floor((sisa % 3600000) / 60000);
+    btn.textContent = jam + 'j ' + menit + 'm';
+  }
+}
+
+function klaimDaily() {
+  if (!sesi) return;
+  const users = muatPengguna();
+  const d = users[sesi];
+  const now = Date.now();
+  if (d.lastDaily && now - d.lastDaily < 86400000) {
+    tampilkanNotif('⏳ Sudah diklaim hari ini', true);
+    return;
+  }
+  d.saldo += DAILY_BONUS;
+  d.lastDaily = now;
+  users[sesi] = d;
+  simpanPengguna(users);
+  perbaruiUI();
+  cekDailyBonus();
+  tampilkanNotif('🎁 Bonus harian +' + formatRp(DAILY_BONUS));
+}
+
+/* ================= KELUAR ================= */
+function keluar() {
+  if (autoSpinAktif) stopAutoSpin();
+  sesi = null;
+  simpanSesi('');
+  document.getElementById('gameScreen').className = 'screen';
+  document.getElementById('authScreen').className = 'screen active';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('regUser').value = '';
+  document.getElementById('regPass').value = '';
+  document.getElementById('regPass2').value = '';
+  tampilkanNotif('👋 Berhasil keluar');
+}
+
+/* ================= RATE MENANG ================= */
+function pilihRate() {
+  const total = RATE_PILIHAN.reduce((a, b) => a + b, 0);
+  let r = Math.random() * total;
+  for (const rate of RATE_PILIHAN) { r -= rate; if (r <= 0) return rate; }
+  return RATE_PILIHAN[RATE_PILIHAN.length - 1];
 }
 
 /* ================= AUTO LOGIN ================= */
