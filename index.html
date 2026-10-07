@@ -7,27 +7,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#04140a;
-  --bg2:#07240f;
-  --surface:#0b2a14;
-  --surface2:#103a1c;
-  --surface3:#165026;
-  --border:#1c6b32;
-  --border2:#28a04a;
-  --text:#eafff0;
-  --text2:#9fd8b0;
-  --text3:#5c8f6d;
-  --gold:#ffd23f;
-  --gold2:#ffb400;
-  --green:#00c853;
-  --green2:#009624;
-  --blue:#1565c0;
-  --red:#ff3b30;
-  --yellow:#ffdf00;
-  --radius:12px;
-  --radius2:16px;
-  --shadow:0 8px 30px rgba(0,0,0,.5);
-  --glow:0 0 24px rgba(255,210,63,.45);
+  --bg:#04140a;--bg2:#07240f;--surface:#0b2a14;--surface2:#103a1c;--surface3:#165026;
+  --border:#1c6b32;--border2:#28a04a;--text:#eafff0;--text2:#9fd8b0;--text3:#5c8f6d;
+  --gold:#ffd23f;--gold2:#ffb400;--green:#00c853;--green2:#009624;
+  --red:#ff3b30;--purple:#9c27b0;--blue:#2196f3;--orange:#ff9800;
+  --radius:12px;--radius2:16px;--shadow:0 8px 30px rgba(0,0,0,.5);
 }
 html,body{
   min-height:100vh;
@@ -35,22 +19,17 @@ html,body{
     radial-gradient(circle at 20% 0%, #0a3d1a 0%, transparent 40%),
     radial-gradient(circle at 80% 100%, #1a4a1a 0%, transparent 45%),
     linear-gradient(180deg,#04140a 0%,#020905 100%);
-  color:var(--text);
-  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-  overflow-x:hidden;
+  color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;
 }
 body::before{
-  content:"";
-  position:fixed;inset:0;
+  content:"";position:fixed;inset:0;
   background-image:
     radial-gradient(circle,rgba(255,210,63,.06) 1px,transparent 1px),
     radial-gradient(circle,rgba(0,200,83,.06) 1px,transparent 1px);
   background-size:40px 40px,60px 60px;
-  background-position:0 0,20px 20px;
-  pointer-events:none;
-  z-index:0;
+  pointer-events:none;z-index:0;
 }
-#app{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:16px;min-height:100vh}
+#app{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:12px;min-height:100vh}
 
 /* ============ LAYAR ============ */
 .screen{display:none;animation:muncul .35s ease}
@@ -58,348 +37,252 @@ body::before{
 @keyframes muncul{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* ============ AUTENTIKASI ============ */
-.auth-wrap{padding-top:28px}
-.logo{text-align:center;margin-bottom:8px;position:relative}
-.logo-flag{
-  font-size:56px;display:block;margin-bottom:6px;
-  filter:drop-shadow(0 6px 14px rgba(0,200,83,.5));
-  animation:melayang 3s ease-in-out infinite;
-}
+.auth-wrap{padding-top:20px}
+.logo{text-align:center;margin-bottom:8px}
+.logo-flag{font-size:52px;display:block;margin-bottom:6px;animation:melayang 3s ease-in-out infinite}
 @keyframes melayang{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .logo-title{
-  font-size:30px;font-weight:800;letter-spacing:-0.5px;
+  font-size:28px;font-weight:800;letter-spacing:-0.5px;
   background:linear-gradient(90deg,#ffd23f 0%,#00c853 50%,#ffd23f 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:kilau 3s linear infinite;
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;animation:kilau 3s linear infinite;
 }
 @keyframes kilau{to{background-position:200% center}}
-.logo-sub{font-size:13px;color:var(--text2);margin-top:6px}
+.logo-sub{font-size:12px;color:var(--text2);margin-top:6px}
 .logo-sub b{color:var(--gold)}
-
-.tab-row{
-  display:flex;margin:22px 0 16px;
-  background:var(--surface);border-radius:var(--radius);
-  padding:5px;border:1px solid var(--border);
-}
-.tab{
-  flex:1;height:40px;border:none;background:transparent;
-  color:var(--text2);font-size:14px;font-weight:600;
-  cursor:pointer;border-radius:9px;transition:all .25s;
-}
-.tab.active{
-  background:linear-gradient(135deg,var(--green),var(--green2));
-  color:#fff;box-shadow:0 4px 12px rgba(0,200,83,.35);
-}
-.tab:not(.active):hover{color:var(--text)}
-
-.card{
-  background:linear-gradient(180deg,var(--surface) 0%,var(--bg2) 100%);
-  border:1px solid var(--border);border-radius:var(--radius2);
-  padding:22px;box-shadow:var(--shadow);
-}
-.form-group{margin-bottom:14px}
-.form-group label{
-  font-size:11px;color:var(--text2);display:block;margin-bottom:6px;
-  letter-spacing:.5px;text-transform:uppercase;font-weight:600;
-}
-.form-group input{
-  width:100%;height:46px;background:var(--surface2);
-  border:1px solid var(--border);border-radius:var(--radius);
-  color:var(--text);font-size:14px;padding:0 14px;outline:none;
-  transition:all .2s;
-}
-.form-group input:focus{
-  border-color:var(--green);
-  box-shadow:0 0 0 3px rgba(0,200,83,.15);
-  background:var(--surface3);
-}
+.tab-row{display:flex;margin:20px 0 14px;background:var(--surface);border-radius:12px;padding:5px;border:1px solid var(--border)}
+.tab{flex:1;height:40px;border:none;background:transparent;color:var(--text2);font-size:14px;font-weight:600;cursor:pointer;border-radius:9px;transition:all .25s}
+.tab.active{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 4px 12px rgba(0,200,83,.35)}
+.card{background:linear-gradient(180deg,var(--surface) 0%,var(--bg2) 100%);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.form-group{margin-bottom:12px}
+.form-group label{font-size:11px;color:var(--text2);display:block;margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+.form-group input{width:100%;height:44px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:14px;padding:0 14px;outline:none;transition:all .2s}
+.form-group input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,200,83,.15)}
 .form-group input::placeholder{color:var(--text3)}
-.err{font-size:12px;color:var(--red);margin-top:5px;min-height:14px}
-.suc{font-size:12px;color:var(--green);margin-top:5px;min-height:14px;font-weight:600}
-
-.btn{
-  width:100%;height:48px;border:none;border-radius:var(--radius);
-  font-size:15px;font-weight:700;cursor:pointer;
-  transition:all .15s;letter-spacing:.3px;
-  position:relative;overflow:hidden;
-}
+.err{font-size:12px;color:var(--red);margin-top:4px;min-height:14px}
+.suc{font-size:12px;color:var(--green);margin-top:4px;min-height:14px;font-weight:600}
+.btn{width:100%;height:46px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
 .btn:active{transform:scale(.98)}
-.btn-primary{
-  background:linear-gradient(135deg,var(--green),var(--green2));
-  color:#fff;box-shadow:0 6px 18px rgba(0,200,83,.35);
-}
-.btn-primary:hover{box-shadow:0 8px 22px rgba(0,200,83,.5)}
-.btn-gold{
-  background:linear-gradient(135deg,var(--gold2),var(--gold));
-  color:#1a1000;box-shadow:0 6px 18px rgba(255,210,63,.35);
-}
-.btn-gold:hover{box-shadow:0 8px 24px rgba(255,210,63,.55)}
-.btn-ghost{
-  background:transparent;border:1px solid var(--border2);
-  color:var(--text2);
-}
-.btn-ghost:hover{background:var(--surface2);color:var(--text)}
-.bonus-note{
-  text-align:center;margin-top:12px;font-size:12px;color:var(--gold);
-  padding:10px;background:rgba(255,210,63,.08);
-  border-radius:var(--radius);border:1px dashed var(--gold2);
-  font-weight:600;
-}
+.btn-primary{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 6px 18px rgba(0,200,83,.35)}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1000;box-shadow:0 6px 18px rgba(255,210,63,.35)}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.bonus-note{text-align:center;margin-top:10px;font-size:12px;color:var(--gold);padding:10px;background:rgba(255,210,63,.08);border-radius:12px;border:1px dashed var(--gold2);font-weight:600}
 
-/* ============ KEPALA PERMAINAN ============ */
-.game-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:14px;gap:8px;
-}
-.game-logo{
-  font-size:18px;font-weight:800;
-  background:linear-gradient(90deg,#ffd23f,#00c853);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-  white-space:nowrap;
-}
-.user-badge{
-  font-size:11px;color:var(--text2);background:var(--surface2);
-  padding:5px 10px;border-radius:20px;border:1px solid var(--border);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;
-}
+/* ============ HEADER ============ */
+.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+.game-logo{font-size:16px;font-weight:800;background:linear-gradient(90deg,#ffd23f,#00c853);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.header-right{display:flex;gap:6px;align-items:center}
+.user-badge{font-size:11px;color:var(--text2);background:var(--surface2);padding:4px 9px;border-radius:20px;border:1px solid var(--border);max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.level-badge{font-size:10px;color:#1a1000;background:linear-gradient(135deg,var(--gold2),var(--gold));padding:4px 8px;border-radius:20px;font-weight:800;white-space:nowrap}
 
 /* ============ SALDO ============ */
-.bal-card{
-  background:linear-gradient(135deg,#0a3d1a 0%,#1a5a2a 50%,#0a3d1a 100%);
-  border:1px solid var(--border2);border-radius:var(--radius2);
-  padding:18px 20px;margin-bottom:12px;
-  display:flex;justify-content:space-between;align-items:center;
-  position:relative;overflow:hidden;
-  box-shadow:0 8px 24px rgba(0,200,83,.2);
-}
-.bal-card::before{
-  content:"";position:absolute;top:-50%;right:-20%;
-  width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,210,63,.25),transparent 70%);
-  pointer-events:none;
-}
-.bal-left .bal-label{
-  font-size:10px;color:#9fe0b0;text-transform:uppercase;
-  letter-spacing:1px;margin-bottom:4px;font-weight:700;
-}
-.bal-left .bal-val{
-  font-size:28px;font-weight:900;color:var(--gold);
-  text-shadow:0 2px 12px rgba(255,210,63,.5);
-  letter-spacing:-.5px;
-}
-.bal-icon{font-size:40px;filter:drop-shadow(0 4px 10px rgba(255,210,63,.4))}
+.bal-card{background:linear-gradient(135deg,#0a3d1a 0%,#1a5a2a 50%,#0a3d1a 100%);border:1px solid var(--border2);border-radius:16px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 24px rgba(0,200,83,.2);position:relative;overflow:hidden}
+.bal-card::before{content:"";position:absolute;top:-50%;right:-20%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,210,63,.25),transparent 70%);pointer-events:none}
+.bal-label{font-size:10px;color:#9fe0b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-weight:700}
+.bal-val{font-size:24px;font-weight:900;color:var(--gold);text-shadow:0 2px 12px rgba(255,210,63,.5)}
+.bal-icon{font-size:36px}
 
 /* ============ STATISTIK ============ */
-.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.stat-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:12px;text-align:center;
-}
-.stat-l{font-size:10px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.stat-v{font-size:18px;font-weight:800;color:var(--gold)}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px;text-align:center}
+.stat-l{font-size:9px;color:var(--text3);margin-bottom:2px;text-transform:uppercase;font-weight:600}
+.stat-v{font-size:14px;font-weight:800;color:var(--gold)}
 
-/* ============ PEMILIH PERMAINAN ============ */
-.game-selector{display:flex;gap:8px;margin-bottom:12px}
-.game-tab{
-  flex:1;height:40px;border:1px solid var(--border2);
-  background:var(--surface2);color:var(--text2);
-  border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;
-  transition:all .2s;
-}
-.game-tab.active{
-  background:linear-gradient(135deg,var(--gold2),var(--gold));
-  color:#1a1000;border-color:var(--gold);
-  box-shadow:0 4px 12px rgba(255,210,63,.4);
-}
+/* ============ PILIH PERMAINAN ============ */
+.game-selector{display:flex;gap:8px;margin-bottom:10px}
+.game-tab{flex:1;height:42px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.game-tab.active{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1000;border-color:var(--gold);box-shadow:0 4px 12px rgba(255,210,63,.4)}
 
-/* ============ MESIN SLOT ============ */
-.machine{
-  background:linear-gradient(180deg,var(--surface) 0%,var(--bg2) 100%);
-  border:1px solid var(--border);border-radius:var(--radius2);
-  padding:16px;margin-bottom:12px;
-  box-shadow:var(--shadow);position:relative;overflow:hidden;
+/* ============ MESIN ============ */
+.machine{background:linear-gradient(180deg,var(--surface) 0%,var(--bg2) 100%);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.machine-top{font-size:10px;color:var(--gold);text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:2px;font-weight:700}
+
+/* ============ GRID 5×6 = 30 SLOT ============ */
+.grid-wrap{position:relative;padding:4px 0;margin-bottom:10px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:repeat(6,1fr);
+  gap:4px;
+  background:rgba(0,0,0,.35);
+  padding:6px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  position:relative;
 }
-.machine::before{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 0%,rgba(255,210,63,.08),transparent 60%);
-  pointer-events:none;
-}
-.machine-top{
-  font-size:11px;color:var(--gold);text-align:center;
-  margin-bottom:14px;text-transform:uppercase;letter-spacing:2px;
-  font-weight:700;position:relative;
-}
-.reels{display:flex;gap:10px;justify-content:center;margin-bottom:14px;position:relative}
-.reel{
-  width:92px;height:104px;
+.cell{
+  aspect-ratio:1;
   background:linear-gradient(180deg,var(--surface2),var(--surface3));
-  border:2px solid var(--border2);border-radius:14px;
+  border-radius:7px;
   display:flex;align-items:center;justify-content:center;
-  font-size:48px;transition:all .3s;
+  font-size:18px;
+  border:1px solid rgba(255,255,255,.06);
+  transition:all .25s;
   position:relative;overflow:hidden;
-  box-shadow:inset 0 4px 12px rgba(0,0,0,.4);
+  user-select:none;
 }
-.reel::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent 40%,rgba(0,0,0,.2));
-  pointer-events:none;border-radius:12px;
+
+/* Animasi spin */
+.cell.spin{animation:cellSpin .12s ease-in-out infinite}
+@keyframes cellSpin{
+  0%{transform:translateY(0);opacity:.5}
+  50%{transform:translateY(-3px);opacity:1}
+  100%{transform:translateY(0);opacity:.5}
 }
-.reel.win-glow{
+
+/* Animasi menang — pulse bertahap */
+.cell.win{
   border-color:var(--gold);
-  box-shadow:0 0 24px rgba(255,210,63,.7),inset 0 4px 12px rgba(0,0,0,.4);
-  animation:reelMenang .5s ease;
+  background:linear-gradient(180deg,#3a3010,#1a1806);
+  box-shadow:0 0 12px rgba(255,210,63,.75),inset 0 0 8px rgba(255,210,63,.3);
+  animation:cellPulse .5s ease;
+  z-index:2;
 }
-@keyframes reelMenang{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.reel.spinning{animation:putarReel .12s ease-in-out infinite}
-@keyframes putarReel{
-  0%{transform:translateY(0)}
-  33%{transform:translateY(-8px)}
-  66%{transform:translateY(8px)}
-  100%{transform:translateY(0)}
+@keyframes cellPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+
+/* Animasi tumble — pecah */
+.cell.tumble{
+  animation:tumbleOut .35s ease forwards;
 }
-.win-badge{
-  text-align:center;padding:12px 14px;border-radius:var(--radius);
-  font-size:13px;font-weight:700;min-height:44px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .3s;
+@keyframes tumbleOut{
+  0%{transform:scale(1.18);opacity:1}
+  50%{transform:scale(.6) rotate(25deg);opacity:.5}
+  100%{transform:scale(0) rotate(90deg);opacity:0}
 }
+
+/* Animasi isi ulang */
+.cell.refill{
+  animation:refillIn .35s ease;
+}
+@keyframes refillIn{
+  0%{transform:translateY(-120%);opacity:0}
+  100%{transform:translateY(0);opacity:1}
+}
+
+/* Cell pengganda Zeus */
+.cell.mult{
+  background:linear-gradient(135deg,#4a1a4a,#7a2a7a);
+  border:1px solid var(--purple);
+  color:#fff;font-weight:900;
+  font-size:11px;
+  box-shadow:0 0 12px rgba(156,39,176,.7);
+  flex-direction:column;
+}
+.cell.mult .mult-icon{font-size:13px;line-height:1}
+.cell.mult .mult-val{font-size:9px;font-weight:900;color:var(--gold)}
+
+/* Cell scatter */
+.cell.scatter{
+  background:linear-gradient(135deg,#4a1010,#8a2020);
+  border:1px solid var(--red);
+  box-shadow:0 0 14px rgba(255,59,48,.8);
+  animation:scatterGlow 1.2s ease-in-out infinite;
+}
+@keyframes scatterGlow{
+  0%,100%{box-shadow:0 0 10px rgba(255,59,48,.6)}
+  50%{box-shadow:0 0 22px rgba(255,59,48,1)}
+}
+
+/* ============ WIN BADGE ============ */
+.win-badge{text-align:center;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:700;min-height:42px;display:flex;align-items:center;justify-content:center;transition:all .3s;gap:4px;flex-wrap:wrap}
 .win-badge.idle{background:var(--surface2);color:var(--text3);border:1px solid var(--border)}
-.win-badge.win{
-  background:linear-gradient(135deg,#0a5a1a,#00c853);
-  color:#fff;border:1px solid var(--gold);
-  box-shadow:0 0 24px rgba(255,210,63,.5);
-  animation:denyutMenang .6s ease;
-}
+.win-badge.win{background:linear-gradient(135deg,#0a5a1a,#00c853);color:#fff;border:1px solid var(--gold);box-shadow:0 0 24px rgba(255,210,63,.5);animation:denyut .6s ease}
 .win-badge.lose{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
-@keyframes denyutMenang{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.win-badge.free{background:linear-gradient(135deg,#4a1a4a,#9c27b0);color:#fff;border:1px solid var(--purple);animation:denyut .6s ease}
+@keyframes denyut{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 
 /* ============ TARUHAN ============ */
-.bet-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius2);padding:16px;margin-bottom:12px;
-}
-.bet-label{
-  font-size:10px;color:var(--text3);text-transform:uppercase;
-  letter-spacing:1px;margin-bottom:10px;font-weight:700;
-}
-.bet-chips{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.chip{
-  flex:1;min-width:58px;height:38px;
-  border:1px solid var(--border2);background:var(--surface2);
-  color:var(--text2);border-radius:10px;font-size:12px;font-weight:700;
-  cursor:pointer;transition:all .2s;
-}
-.chip:hover{border-color:var(--gold);color:var(--text);transform:translateY(-1px)}
-.chip.sel{
-  background:linear-gradient(135deg,var(--gold2),var(--gold));
-  border-color:var(--gold);color:#1a1000;
-  box-shadow:0 4px 12px rgba(255,210,63,.4);
-}
-.bet-info{
-  display:flex;justify-content:space-between;font-size:12px;
-  color:var(--text3);margin-bottom:12px;padding:8px 10px;
-  background:var(--surface2);border-radius:8px;
-}
+.bet-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px}
+.bet-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:700}
+.bet-chips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.chip{flex:1;min-width:56px;height:36px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.chip.sel{background:linear-gradient(135deg,var(--gold2),var(--gold));border-color:var(--gold);color:#1a1000;box-shadow:0 4px 12px rgba(255,210,63,.4)}
+.bet-info{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-bottom:10px;padding:8px 10px;background:var(--surface2);border-radius:8px}
 .bet-info span{color:var(--gold);font-weight:800}
-.spin-btn{
-  width:100%;height:56px;border:none;border-radius:var(--radius);
-  font-size:18px;font-weight:900;cursor:pointer;letter-spacing:1px;
-  transition:all .2s;
-  background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold2));
-  background-size:200% auto;
-  color:#1a1000;
-  box-shadow:0 6px 20px rgba(255,210,63,.45);
-  animation:kilau 2.5s linear infinite;
-  text-transform:uppercase;
-}
-.spin-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,210,63,.65)}
-.spin-btn:active{transform:translateY(1px) scale(.99)}
-.spin-btn:disabled{
-  opacity:.45;cursor:not-allowed;transform:none;
-  animation:none;box-shadow:none;
-}
-.spin-err{
-  font-size:12px;color:var(--red);text-align:center;
-  margin-top:8px;min-height:16px;font-weight:600;
-}
+.spin-btn{width:100%;height:54px;border:none;border-radius:12px;font-size:17px;font-weight:900;cursor:pointer;letter-spacing:1px;transition:all .2s;background:linear-gradient(135deg,var(--gold2),var(--gold),var(--gold2));background-size:200% auto;color:#1a1000;box-shadow:0 6px 20px rgba(255,210,63,.45);animation:kilau 2.5s linear infinite;text-transform:uppercase}
+.spin-btn:disabled{opacity:.45;cursor:not-allowed;animation:none}
+.spin-err{font-size:12px;color:var(--red);text-align:center;margin-top:6px;min-height:16px;font-weight:600}
 
-/* ============ TABEL PEMBAYARAN ============ */
-.pay-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius2);padding:16px;margin-bottom:12px;
-}
-.pay-title{
-  font-size:11px;font-weight:700;color:var(--gold);
-  margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;
-}
-.pay-grid{display:grid;gap:6px}
-.pay-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 10px;background:var(--surface2);border-radius:8px;
-  border:1px solid transparent;transition:all .2s;
-}
-.pay-row:hover{border-color:var(--gold2);background:var(--surface3)}
-.pay-syms{font-size:18px;letter-spacing:2px}
-.pay-name{font-size:12px;color:var(--text2);flex:1;margin-left:10px}
-.pay-mult{font-size:13px;font-weight:900;color:var(--gold)}
+/* ============ MODE TURBO ============ */
+.turbo-row{display:flex;gap:8px;margin-top:8px}
+.turbo-btn{flex:1;height:34px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s}
+.turbo-btn.active{background:linear-gradient(135deg,var(--orange),#ff6a00);color:#fff;border-color:var(--orange)}
+
+/* ============ PAYTABLE ============ */
+.pay-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px}
+.pay-title{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.pay-grid{display:grid;gap:5px}
+.pay-row{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:8px;font-size:11px}
+.pay-syms{font-size:15px;letter-spacing:1px}
+.pay-name{color:var(--text2);flex:1;margin-left:8px}
+.pay-mult{font-size:12px;font-weight:900;color:var(--gold)}
 
 /* ============ RIWAYAT ============ */
-.hist-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius2);padding:16px;margin-bottom:12px;
-}
-.hist-title{
-  font-size:11px;font-weight:700;color:var(--gold);
-  margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;
-}
-.hist-list{display:grid;gap:5px;max-height:180px;overflow-y:auto;padding-right:4px}
-.hist-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 10px;background:var(--surface2);border-radius:8px;
-  font-size:12px;border-left:3px solid var(--border);
-}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px}
+.hist-title{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.hist-list{display:grid;gap:4px;max-height:160px;overflow-y:auto}
+.hist-item{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:6px;font-size:11px;border-left:3px solid var(--border)}
 .hist-item.win{border-left-color:var(--green);background:rgba(0,200,83,.08)}
-.hist-item.lose{border-left-color:var(--text3)}
-.hist-syms{font-size:15px;letter-spacing:1px}
 .hist-res.win{color:var(--green);font-weight:800}
 .hist-res.lose{color:var(--text3)}
+
+/* ============ INFO NOTE ============ */
+.info-note{background:rgba(255,210,63,.08);border:1px solid rgba(255,210,63,.3);border-radius:12px;padding:10px;font-size:10px;color:var(--gold);line-height:1.6;margin-bottom:10px}
+
+/* ============ NOTIFIKASI ============ */
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:10px 20px;border-radius:30px;font-size:13px;font-weight:700;box-shadow:0 8px 24px rgba(0,200,83,.5);opacity:0;transition:all .35s;z-index:999;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.err{background:linear-gradient(135deg,#ff5a4a,var(--red))}
+
+/* ============ KONFETI ============ */
+.confetti{position:fixed;top:-10px;width:8px;height:14px;pointer-events:none;z-index:998;animation:jatuh linear forwards}
+@keyframes jatuh{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* ============ FREE SPIN BANNER ============ */
+.free-banner{
+  background:linear-gradient(135deg,#4a1a4a,#9c27b0);
+  border:1px solid var(--purple);
+  border-radius:12px;
+  padding:10px 14px;
+  margin-bottom:10px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;font-weight:800;color:#fff;
+  box-shadow:0 0 24px rgba(156,39,176,.5);
+  animation:pulseFree 1.5s ease-in-out infinite;
+  display:none;
+}
+.free-banner.show{display:flex}
+@keyframes pulseFree{
+  0%,100%{box-shadow:0 0 18px rgba(156,39,176,.4)}
+  50%{box-shadow:0 0 32px rgba(156,39,176,.8)}
+}
+.free-banner .free-count{
+  font-size:18px;font-weight:900;color:var(--gold);
+}
+
+/* ============ TOMBOL DAILY BONUS ============ */
+.daily-card{
+  background:linear-gradient(135deg,#1a3a10,#2a5a1a);
+  border:1px solid var(--gold2);
+  border-radius:12px;
+  padding:10px 14px;
+  margin-bottom:10px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;font-weight:700;color:var(--gold);
+}
+.daily-card button{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  border:none;border-radius:8px;
+  padding:6px 12px;
+  font-size:11px;font-weight:800;color:#1a1000;
+  cursor:pointer;
+}
+.daily-card button:disabled{opacity:.4;cursor:not-allowed}
+
+/* ============ SCROLLBAR ============ */
 .hist-list::-webkit-scrollbar{width:4px}
 .hist-list::-webkit-scrollbar-track{background:transparent}
 .hist-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-.info-note{
-  background:rgba(255,210,63,.08);
-  border:1px solid rgba(255,210,63,.3);
-  border-radius:var(--radius);padding:10px 12px;
-  font-size:11px;color:var(--gold);line-height:1.6;
-  margin-bottom:12px;
-}
-.info-note b{color:var(--gold)}
-
-/* ============ NOTIFIKASI ============ */
-#toast{
-  position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(80px);
-  background:linear-gradient(135deg,var(--green),var(--green2));
-  color:#fff;padding:12px 22px;border-radius:30px;
-  font-size:13px;font-weight:700;box-shadow:0 8px 24px rgba(0,200,83,.5);
-  opacity:0;transition:all .35s;z-index:999;pointer-events:none;
-  white-space:nowrap;
-}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#toast.err{background:linear-gradient(135deg,#ff5a4a,var(--red));box-shadow:0 8px 24px rgba(255,59,48,.5)}
-
-/* ============ KONFETI ============ */
-.confetti{
-  position:fixed;top:-10px;width:8px;height:14px;
-  pointer-events:none;z-index:998;
-  animation:jatuh linear forwards;
-}
-@keyframes jatuh{
-  to{transform:translateY(100vh) rotate(720deg);opacity:0}
-}
 </style>
 </head>
 <body>
@@ -432,7 +315,7 @@ body::before{
         <div class="err" id="loginPassErr"></div>
       </div>
       <div class="err" id="loginGlobalErr"></div>
-      <div style="height:8px"></div>
+      <div style="height:6px"></div>
       <button class="btn btn-primary" onclick="prosesMasuk()">Masuk Sekarang</button>
     </div>
 
@@ -455,9 +338,8 @@ body::before{
       </div>
       <div class="err" id="regGlobalErr"></div>
       <div class="suc" id="regGlobalSuc"></div>
-      <div style="height:6px"></div>
       <button class="btn btn-gold" onclick="prosesDaftar()">Daftar Sekarang</button>
-      <div class="bonus-note">🎁 Bonus pendaftaran: Saldo Rp 100.000 langsung masuk!</div>
+      <div class="bonus-note">🎁 Bonus pendaftaran: Rp 100.000 langsung masuk!</div>
     </div>
   </div>
 </div>
@@ -466,11 +348,14 @@ body::before{
 <div id="gameScreen" class="screen">
   <div class="game-header">
     <div class="game-logo">🇧🇷 BrazilSlot168</div>
-    <div class="user-badge" id="greetUser">👤 -</div>
+    <div class="header-right">
+      <div class="level-badge" id="levelBadge">Lv.1</div>
+      <div class="user-badge" id="greetUser">👤 -</div>
+    </div>
   </div>
 
   <div class="bal-card">
-    <div class="bal-left">
+    <div>
       <div class="bal-label">Saldo Anda</div>
       <div class="bal-val" id="balDisplay">Rp 0</div>
     </div>
@@ -479,33 +364,44 @@ body::before{
 
   <div class="stats-row">
     <div class="stat-card">
-      <div class="stat-l">Total Putaran</div>
+      <div class="stat-l">Putaran</div>
       <div class="stat-v" id="statSpin">0</div>
     </div>
     <div class="stat-card">
-      <div class="stat-l">Total Kemenangan</div>
+      <div class="stat-l">Menang</div>
       <div class="stat-v" id="statWin">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-l">RTP</div>
+      <div class="stat-v" id="statRtp">0%</div>
     </div>
   </div>
 
-  <!-- PEMILIH PERMAINAN -->
-  <div class="game-selector">
-    <button class="game-tab active" id="gameTabZeus" onclick="gantiPermainan('zeus')">⚡ Zeus</button>
-    <button class="game-tab" id="gameTabMahjong" onclick="gantiPermainan('mahjong')">🀄 Mahjong</button>
+  <!-- DAILY BONUS -->
+  <div class="daily-card" id="dailyCard">
+    <div>🎁 Bonus Harian: <span id="dailyAmt">Rp 25.000</span></div>
+    <button id="dailyBtn" onclick="klaimDaily()">KLAIM</button>
   </div>
 
-  <!-- MESIN SLOT -->
+  <!-- BANNER FREE SPIN -->
+  <div class="free-banner" id="freeBanner">
+    <div>🎰 FREE SPIN AKTIF!</div>
+    <div class="free-count" id="freeCount">0x</div>
+  </div>
+
+  <div class="game-selector">
+    <button class="game-tab active" id="gameTabZeus" onclick="gantiPermainan('zeus')">⚡ Zeus 5×6</button>
+    <button class="game-tab" id="gameTabMahjong" onclick="gantiPermainan('mahjong')">🀄 Mahjong 5×6</button>
+  </div>
+
   <div class="machine">
-    <div class="machine-top">✦ Putar untuk Menang ✦</div>
-    <div class="reels">
-      <div class="reel" id="r0">🎲</div>
-      <div class="reel" id="r1">🎲</div>
-      <div class="reel" id="r2">🎲</div>
+    <div class="machine-top" id="machineTitle">✦ GERBANG ZEUS ✦</div>
+    <div class="grid-wrap">
+      <div class="grid" id="grid"></div>
     </div>
     <div class="win-badge idle" id="winBadge">Pilih taruhan dan putar gulungan!</div>
   </div>
 
-  <!-- TARUHAN -->
   <div class="bet-card">
     <div class="bet-label">💰 Pilih Taruhan</div>
     <div class="bet-chips">
@@ -517,89 +413,128 @@ body::before{
     </div>
     <div class="bet-info">
       <div>Taruhan: <span id="betLabel">Rp 50</span></div>
-      <div>Jackpot: <span id="jackpotLabel">Rp 1.000</span></div>
+      <div>Maks: <span id="jackpotLabel">Rp 125.000</span></div>
     </div>
     <button class="spin-btn" id="spinBtn" onclick="putar()">🎰 PUTAR</button>
+    <div class="turbo-row">
+      <button class="turbo-btn" id="turboBtn" onclick="toggleTurbo()">⚡ Turbo: OFF</button>
+      <button class="turbo-btn" id="soundBtn" onclick="toggleSuara()">🔊 Suara: ON</button>
+    </div>
     <div class="spin-err" id="spinErr"></div>
   </div>
 
-  <!-- TABEL PEMBAYARAN -->
   <div class="pay-card">
-    <div class="pay-title">📋 Tabel Pembayaran</div>
-    <div class="pay-grid">
-      <div class="pay-row">
-        <span class="pay-syms">💎💎💎</span>
-        <span class="pay-name">Jackpot Berlian</span>
-        <span class="pay-mult">×20</span>
-      </div>
-      <div class="pay-row">
-        <span class="pay-syms">🍒🍒🍒</span>
-        <span class="pay-name">Bonus Ceri</span>
-        <span class="pay-mult">×10</span>
-      </div>
-      <div class="pay-row">
-        <span class="pay-syms">🍋🍋🍋</span>
-        <span class="pay-name">Jackpot Lemon</span>
-        <span class="pay-mult">×5</span>
-      </div>
-      <div class="pay-row">
-        <span class="pay-syms">🍇🍇🍇</span>
-        <span class="pay-name">Bonus Anggur</span>
-        <span class="pay-mult">×4</span>
-      </div>
-      <div class="pay-row">
-        <span class="pay-syms">🔔🔔🔔</span>
-        <span class="pay-name">Trio Lonceng</span>
-        <span class="pay-mult">×3</span>
-      </div>
-      <div class="pay-row">
-        <span class="pay-syms">⭐⭐⭐</span>
-        <span class="pay-name">Trio Bintang</span>
-        <span class="pay-mult">×2</span>
-      </div>
-      <div class="pay-row">
-        <span class="pay-syms">🎲🎲🎲</span>
-        <span class="pay-name">Dadu Keberuntungan</span>
-        <span class="pay-mult">×2</span>
-      </div>
-    </div>
+    <div class="pay-title" id="payTitle">📋 Tabel Pembayaran Zeus</div>
+    <div class="pay-grid" id="payGrid"></div>
   </div>
 
-  <!-- RIWAYAT -->
   <div class="hist-card">
     <div class="hist-title">🕓 Riwayat 10 Putaran Terakhir</div>
     <div class="hist-list" id="histList">
-      <div style="text-align:center;color:var(--text3);font-size:12px;padding:12px">Belum ada riwayat putaran</div>
+      <div style="text-align:center;color:var(--text3);font-size:11px;padding:10px">Belum ada riwayat</div>
     </div>
   </div>
 
-  <div class="info-note">
-    ⚡ <b>Info:</b> RTP ~49% | Saldo minimal Rp 50 untuk putar | Peluang menang turun saat saldo &lt; 50.000 | Semua data tersimpan di browser kamu.
+  <div class="info-note" id="infoNote">
+    ⚡ <b>Zeus 5×6:</b> 30 slot | 8+ simbol sama = MENANG | Peluang menang acak 10%/30%/45% 🎲
   </div>
 
-  <button class="btn btn-ghost" style="margin-bottom:24px" onclick="keluar()">🚪 Keluar dari Akun</button>
+  <button class="btn btn-ghost" style="margin-bottom:20px" onclick="keluar()">🚪 Keluar dari Akun</button>
 </div>
 
 </div>
 
 <div id="toast"></div>
 
+<!-- ============================================================
+     PART 2: JAVASCRIPT
+     Akan dikirim di pesan berikutnya.
+     ============================================================ -->
 <script>
-/* ================= KONFIGURASI ================= */
-const ZEUS_SYMS = ['💎','🍒','🍋','🍇','🔔','⭐','🎲'];
-const ZEUS_WEIGHTS = [2, 5, 9, 11, 13, 13, 14];
-const ZEUS_MULTS = [20, 10, 5, 4, 3, 2, 2];
+/* ============================================================
+   PART 2: JAVASCRIPT — LOGIKA GAME LENGKAP
+   ============================================================ */
 
-const MJ_SYMS = ['🀄','🀅','🀆','🀇','🀈','🀉','🀊'];
-const MJ_WEIGHTS = [3, 6, 9, 11, 13, 14, 15];
+/* ================= KONFIGURASI ================= */
+// ZEUS — simbol Pragmatic style
+const ZEUS_SYMS = ['💎','👑','🏺','⚡','🍇','🍒','🍋','🔔','⭐','🎲'];
+const ZEUS_WEIGHTS = [1, 2, 3, 5, 8, 12, 14, 15, 18, 22];
+const ZEUS_PAY = {0:15, 1:10, 2:8, 3:5, 4:3, 5:2, 6:1.5, 7:1, 8:0.8, 9:0.5};
+const ZEUS_MULT_VALUES = [2, 3, 5, 8, 10, 15, 20, 25, 50, 100, 250, 500, 1000, 2500];
+
+// MAHJONG — ubin
+const MJ_SYMS = ['🀄','🀅','🀆','🀇','🀈','🀉','🀊','🀋','🀌','🀍'];
+const MJ_WEIGHTS = [1, 2, 4, 7, 10, 13, 16, 18, 20, 22];
+const MJ_PAY = {0:50, 1:20, 2:10, 3:5, 4:3, 5:2, 6:1.5, 7:1, 8:0.8, 9:0.5};
 const MJ_MULT_LADDER = [1, 2, 3, 5];
 
+// GRID 5×6 = 30 slot
+const COLS = 5, ROWS = 6, TOTAL_CELLS = COLS * ROWS;
+
+// Rate menang acak
+const RATE_PILIHAN = [0.10, 0.30, 0.45];
+
+// Taruhan
 const BET_OPTIONS = [50, 100, 500, 1000, 5000];
 
+// Bonus
+const DAILY_BONUS = 25000;
+const SCATTER_SYMBOL = '🔴';      // untuk Mahjong scatter
+const ZEUS_SCATTER = '⚡';        // untuk Zeus scatter
+const FREE_SPIN_AWARDS = 10;
+
+/* ================= STATE ================= */
 let permainanSekarang = 'zeus';
 let taruhan = 50;
 let sedangPutar = false;
 let sesi = null;
+let modeTurbo = false;
+let suaraAktif = true;
+let freeSpinSisa = 0;
+let freeSpinTotalMenang = 0;
+
+/* ================= WEB AUDIO (SUARA) ================= */
+let audioCtx = null;
+function initAudio() {
+  if (!audioCtx) {
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch(e) { audioCtx = null; }
+  }
+}
+function beep(freq, dur, type, vol) {
+  if (!suaraAktif || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.value = freq;
+    gain.gain.value = vol || 0.08;
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + dur);
+  } catch(e) {}
+}
+function suaraSpin() {
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => beep(400 + i * 60, 0.05, 'square', 0.04), i * 100);
+  }
+}
+function suaraMenang() {
+  const notes = [523, 659, 784, 1047, 1319];
+  notes.forEach((n, i) => setTimeout(() => beep(n, 0.15, 'sine', 0.1), i * 80));
+}
+function suaraKalah() {
+  beep(220, 0.15, 'sawtooth', 0.06);
+  setTimeout(() => beep(180, 0.2, 'sawtooth', 0.06), 100);
+}
+function suaraKlik() { beep(800, 0.04, 'square', 0.03); }
+function suaraScatter() {
+  const notes = [880, 1100, 1320, 1760];
+  notes.forEach((n, i) => setTimeout(() => beep(n, 0.12, 'triangle', 0.1), i * 60));
+}
 
 /* ================= PENYIMPANAN ================= */
 function muatPengguna() {
@@ -621,9 +556,7 @@ function setErr(id, pesan) {
   const el = document.getElementById(id);
   if (el) el.textContent = pesan;
 }
-function bersihkanErr(...ids) {
-  ids.forEach(id => setErr(id, ''));
-}
+function bersihkanErr(...ids) { ids.forEach(id => setErr(id, '')); }
 function tampilkanNotif(pesan, isErr) {
   const t = document.getElementById('toast');
   t.textContent = pesan;
@@ -631,7 +564,17 @@ function tampilkanNotif(pesan, isErr) {
   clearTimeout(t._timer);
   t._timer = setTimeout(() => { t.className = ''; }, 2500);
 }
-function formatRp(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+function formatRp(n) { return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
+function acakBerbobot(weights) {
+  const total = weights.reduce((a, b) => a + b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < weights.length; i++) {
+    r -= weights[i];
+    if (r <= 0) return i;
+  }
+  return weights.length - 1;
+}
+function tunggu(ms) { return new Promise(res => setTimeout(res, modeTurbo ? ms / 4 : ms)); }
 
 /* ================= TAB ================= */
 function gantiTab(tab) {
@@ -640,9 +583,24 @@ function gantiTab(tab) {
   document.getElementById('tabReg').className = 'tab' + (!isLogin ? ' active' : '');
   document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
   document.getElementById('regForm').style.display = !isLogin ? 'block' : 'none';
-  bersihkanErr('loginUserErr','loginPassErr','loginGlobalErr',
-               'regUserErr','regPassErr','regPass2Err','regGlobalErr');
+  bersihkanErr('loginUserErr','loginPassErr','loginGlobalErr','regUserErr','regPassErr','regPass2Err','regGlobalErr');
   document.getElementById('regGlobalSuc').textContent = '';
+}
+
+/* ================= TOGGLE TURBO & SUARA ================= */
+function toggleTurbo() {
+  modeTurbo = !modeTurbo;
+  const btn = document.getElementById('turboBtn');
+  btn.className = 'turbo-btn' + (modeTurbo ? ' active' : '');
+  btn.textContent = '⚡ Turbo: ' + (modeTurbo ? 'ON' : 'OFF');
+  suaraKlik();
+}
+function toggleSuara() {
+  suaraAktif = !suaraAktif;
+  const btn = document.getElementById('soundBtn');
+  btn.className = 'turbo-btn' + (suaraAktif ? ' active' : '');
+  btn.textContent = (suaraAktif ? '🔊' : '🔇') + ' Suara: ' + (suaraAktif ? 'ON' : 'OFF');
+  if (suaraAktif) { initAudio(); suaraKlik(); }
 }
 
 /* ================= GANTI PERMAINAN ================= */
@@ -652,102 +610,118 @@ function gantiPermainan(game) {
   document.getElementById('gameTabZeus').className = 'game-tab' + (game === 'zeus' ? ' active' : '');
   document.getElementById('gameTabMahjong').className = 'game-tab' + (game === 'mahjong' ? ' active' : '');
 
-  const machineTop = document.querySelector('.machine-top');
-  const payTitle = document.querySelector('.pay-title');
-  const payGrid = document.querySelector('.pay-grid');
+  const machineTitle = document.getElementById('machineTitle');
+  const payTitle = document.getElementById('payTitle');
+  const payGrid = document.getElementById('payGrid');
+  const infoNote = document.getElementById('infoNote');
+  const spinBtn = document.getElementById('spinBtn');
 
   if (game === 'zeus') {
-    machineTop.textContent = '✦ Gerbang Zeus ✦';
-    payTitle.textContent = '📋 Tabel Pembayaran Zeus';
+    machineTitle.textContent = '✦ GERBANG ZEUS ✦';
+    payTitle.textContent = '📋 Tabel Pembayaran Zeus (5×6 = 30 slot)';
     payGrid.innerHTML = `
-      <div class="pay-row"><span class="pay-syms">💎💎💎</span><span class="pay-name">Berlian</span><span class="pay-mult">×20</span></div>
-      <div class="pay-row"><span class="pay-syms">🍒🍒🍒</span><span class="pay-name">Ceri</span><span class="pay-mult">×10</span></div>
-      <div class="pay-row"><span class="pay-syms">🍋🍋🍋</span><span class="pay-name">Lemon</span><span class="pay-mult">×5</span></div>
-      <div class="pay-row"><span class="pay-syms">🍇🍇🍇</span><span class="pay-name">Anggur</span><span class="pay-mult">×4</span></div>
-      <div class="pay-row"><span class="pay-syms">🔔🔔🔔</span><span class="pay-name">Lonceng</span><span class="pay-mult">×3</span></div>
-      <div class="pay-row"><span class="pay-syms">⭐⭐⭐</span><span class="pay-name">Bintang</span><span class="pay-mult">×2</span></div>
-      <div class="pay-row"><span class="pay-syms">🎲🎲🎲</span><span class="pay-name">Dadu</span><span class="pay-mult">×2</span></div>
-      <div class="pay-row"><span class="pay-syms">⚡</span><span class="pay-name">Pengganda Zeus</span><span class="pay-mult">×2-×2500</span></div>
+      <div class="pay-row"><span class="pay-syms">💎×8+</span><span class="pay-name">Berlian</span><span class="pay-mult">×15</span></div>
+      <div class="pay-row"><span class="pay-syms">👑×8+</span><span class="pay-name">Mahkota</span><span class="pay-mult">×10</span></div>
+      <div class="pay-row"><span class="pay-syms">🏺×8+</span><span class="pay-name">Guci</span><span class="pay-mult">×8</span></div>
+      <div class="pay-row"><span class="pay-syms">⚡×8+</span><span class="pay-name">Kilat</span><span class="pay-mult">×5</span></div>
+      <div class="pay-row"><span class="pay-syms">🍇×8+</span><span class="pay-name">Anggur</span><span class="pay-mult">×3</span></div>
+      <div class="pay-row"><span class="pay-syms">🔔×8+</span><span class="pay-name">Lonceng</span><span class="pay-mult">×1</span></div>
+      <div class="pay-row"><span class="pay-syms">💜</span><span class="pay-name">Pengganda Zeus</span><span class="pay-mult">×2-×2500</span></div>
+      <div class="pay-row"><span class="pay-syms">⚡×4+</span><span class="pay-name">Scatter → Free Spin</span><span class="pay-mult">10×</span></div>
     `;
+    infoNote.innerHTML = '⚡ <b>Zeus 5×6:</b> 30 slot | 8+ simbol sama = MENANG | 4+ ⚡ = FREE SPIN | Peluang menang acak 10%/30%/45% 🎲';
+    spinBtn.textContent = '⚡ PUTAR ZEUS';
     document.getElementById('winBadge').textContent = '⚡ Pilih taruhan dan panggil Zeus!';
   } else {
-    machineTop.textContent = '🀄 Mahjong Ways 🀄';
-    payTitle.textContent = '📋 Tabel Pembayaran Mahjong';
+    machineTitle.textContent = '🀄 MAHJONG WAYS 🀄';
+    payTitle.textContent = '📋 Tabel Pembayaran Mahjong (5×6 = 30 slot)';
     payGrid.innerHTML = `
-      <div class="pay-row"><span class="pay-syms">🀄🀄🀄</span><span class="pay-name">Naga Merah</span><span class="pay-mult">×50</span></div>
-      <div class="pay-row"><span class="pay-syms">🀅🀅🀅</span><span class="pay-name">Naga Hijau</span><span class="pay-mult">×20</span></div>
-      <div class="pay-row"><span class="pay-syms">🀆🀆🀆</span><span class="pay-name">Naga Putih</span><span class="pay-mult">×10</span></div>
-      <div class="pay-row"><span class="pay-syms">🀇🀇🀇</span><span class="pay-name">Bambu 1</span><span class="pay-mult">×5</span></div>
-      <div class="pay-row"><span class="pay-syms">🀈🀈🀈</span><span class="pay-name">Bambu 2</span><span class="pay-mult">×3</span></div>
-      <div class="pay-row"><span class="pay-syms">🀉🀉🀉</span><span class="pay-name">Bambu 3</span><span class="pay-mult">×2</span></div>
-      <div class="pay-row"><span class="pay-syms">🀊🀊🀊</span><span class="pay-name">Bambu 4</span><span class="pay-mult">×2</span></div>
-      <div class="pay-row"><span class="pay-syms">🔴</span><span class="pay-name">Scatter (Putaran Gratis)</span><span class="pay-mult">×2</span></div>
+      <div class="pay-row"><span class="pay-syms">🀄×3</span><span class="pay-name">Naga Merah</span><span class="pay-mult">×50</span></div>
+      <div class="pay-row"><span class="pay-syms">🀅×3</span><span class="pay-name">Naga Hijau</span><span class="pay-mult">×20</span></div>
+      <div class="pay-row"><span class="pay-syms">🀆×3</span><span class="pay-name">Naga Putih</span><span class="pay-mult">×10</span></div>
+      <div class="pay-row"><span class="pay-syms">🀇×3</span><span class="pay-name">Bambu 1</span><span class="pay-mult">×5</span></div>
+      <div class="pay-row"><span class="pay-syms">🀈×3</span><span class="pay-name">Bambu 2</span><span class="pay-mult">×3</span></div>
+      <div class="pay-row"><span class="pay-syms">🀉×3</span><span class="pay-name">Bambu 3</span><span class="pay-mult">×2</span></div>
+      <div class="pay-row"><span class="pay-syms">🀊×3</span><span class="pay-name">Bambu 4</span><span class="pay-mult">×1</span></div>
+      <div class="pay-row"><span class="pay-syms">🔴×4</span><span class="pay-name">Scatter → Free Spin</span><span class="pay-mult">10×</span></div>
     `;
+    infoNote.innerHTML = '🀄 <b>Mahjong 5×6:</b> 30 slot | 3+ ubin sama = MENANG | 4+ 🔴 = FREE SPIN | Peluang 10%/30%/45% 🎲';
+    spinBtn.textContent = '🀄 PUTAR MAHJONG';
     document.getElementById('winBadge').textContent = '🀄 Sentuh ubin untuk membuka keberuntungan!';
   }
 
-  document.getElementById('r0').textContent = game === 'zeus' ? '🎲' : '🀄';
-  document.getElementById('r1').textContent = game === 'zeus' ? '🎲' : '🀄';
-  document.getElementById('r2').textContent = game === 'zeus' ? '🎲' : '🀄';
-  document.querySelectorAll('.reel').forEach(r => r.classList.remove('win-glow'));
+  gambarGridKosong();
+}
+
+function gambarGridKosong() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  const syms = permainanSekarang === 'zeus' ? ZEUS_SYMS : MJ_SYMS;
+  for (let i = 0; i < TOTAL_CELLS; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = syms[Math.floor(Math.random() * 4)];
+    grid.appendChild(cell);
+  }
 }
 
 /* ================= DAFTAR ================= */
 function prosesDaftar() {
+  initAudio();
   const u = document.getElementById('regUser').value.trim();
   const p = document.getElementById('regPass').value;
   const p2 = document.getElementById('regPass2').value;
   bersihkanErr('regUserErr','regPassErr','regPass2Err','regGlobalErr');
   document.getElementById('regGlobalSuc').textContent = '';
-
   let ok = true;
   const users = muatPengguna();
 
   if (!u) { setErr('regUserErr', 'Nama pengguna tidak boleh kosong'); ok = false; }
   else if (u.length < 3) { setErr('regUserErr', 'Nama pengguna minimal 3 karakter'); ok = false; }
-  else if (users[u]) { setErr('regUserErr', 'Nama pengguna sudah dipakai, coba yang lain'); ok = false; }
-
+  else if (users[u]) { setErr('regUserErr', 'Nama pengguna sudah dipakai'); ok = false; }
   if (!p || p.length < 4) { setErr('regPassErr', 'Kata sandi minimal 4 karakter'); ok = false; }
   if (p !== p2) { setErr('regPass2Err', 'Kata sandi tidak cocok'); ok = false; }
-
   if (!ok) return;
 
-  users[u] = { pass: p, saldo: 100000, spin: 0, wins: 0, history: [] };
+  users[u] = {
+    pass: p,
+    saldo: 100000,
+    spin: 0,
+    wins: 0,
+    history: [],
+    level: 1,
+    totalBet: 0,
+    totalWin: 0,
+    lastDaily: 0,
+    lastDailyAmt: DAILY_BONUS
+  };
   simpanPengguna(users);
-
   document.getElementById('regGlobalSuc').textContent = '✅ Pendaftaran berhasil! Silakan masuk.';
   document.getElementById('regUser').value = '';
   document.getElementById('regPass').value = '';
   document.getElementById('regPass2').value = '';
   tampilkanNotif('🎉 Akun berhasil dibuat!');
-
+  suaraMenang();
   setTimeout(() => gantiTab('login'), 1400);
 }
 
 /* ================= MASUK ================= */
 function prosesMasuk() {
+  initAudio();
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
   bersihkanErr('loginUserErr','loginPassErr','loginGlobalErr');
-
   if (!u) { setErr('loginUserErr', 'Masukkan nama pengguna'); return; }
   if (!p) { setErr('loginPassErr', 'Masukkan kata sandi'); return; }
-
   const users = muatPengguna();
-  if (!users[u]) {
-    setErr('loginGlobalErr', '❌ Nama pengguna tidak terdaftar');
-    return;
-  }
-  if (users[u].pass !== p) {
-    setErr('loginGlobalErr', '❌ Kata sandi salah');
-    return;
-  }
-
+  if (!users[u]) { setErr('loginGlobalErr', '❌ Nama pengguna tidak terdaftar'); return; }
+  if (users[u].pass !== p) { setErr('loginGlobalErr', '❌ Kata sandi salah'); return; }
   sesi = u;
   simpanSesi(u);
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
   tampilkanNotif('✅ Berhasil masuk!');
+  suaraMenang();
   tampilkanPermainan();
 }
 
@@ -771,39 +745,85 @@ function tampilkanPermainan() {
   renderRiwayat();
   setTaruhan(taruhan);
   gantiPermainan(permainanSekarang);
+  cekDailyBonus();
 }
 
-/* ================= PERBARUI UI ================= */
 function perbaruiUI() {
   const users = muatPengguna();
   const d = users[sesi];
   if (!d) return;
+
   document.getElementById('balDisplay').textContent = formatRp(d.saldo);
   document.getElementById('statSpin').textContent = d.spin;
   document.getElementById('statWin').textContent = d.wins;
+
+  // RTP aktual
+  const rtp = d.totalBet > 0 ? Math.round((d.totalWin / d.totalBet) * 100) : 0;
+  document.getElementById('statRtp').textContent = rtp + '%';
+
+  // Level
+  const level = Math.floor(d.spin / 50) + 1;
+  d.level = level;
+  document.getElementById('levelBadge').textContent = 'Lv.' + level;
+
+  // Simpan level
+  const freshUsers = muatPengguna();
+  freshUsers[sesi] = d;
+  simpanPengguna(freshUsers);
 }
 
-/* ================= TARUHAN ================= */
 function setTaruhan(v) {
   taruhan = v;
   document.getElementById('betLabel').textContent = formatRp(v);
-  const jackpotMult = 2500;
-  document.getElementById('jackpotLabel').textContent = formatRp(v * jackpotMult);
+  document.getElementById('jackpotLabel').textContent = formatRp(v * 2500);
   BET_OPTIONS.forEach(val => {
     const el = document.getElementById('chip' + val);
     if (el) el.className = 'chip' + (val === v ? ' sel' : '');
   });
+  suaraKlik();
 }
 
-/* ================= ACAK ================= */
-function acakBerbobot(weights) {
-  const total = weights.reduce((a, b) => a + b, 0);
-  let r = Math.random() * total;
-  for (let i = 0; i < weights.length; i++) {
-    r -= weights[i];
-    if (r <= 0) return i;
+/* ================= DAILY BONUS ================= */
+function cekDailyBonus() {
+  const users = muatPengguna();
+  const d = users[sesi];
+  if (!d) return;
+  const sekarang = Date.now();
+  const sehari = 24 * 60 * 60 * 1000;
+  const btn = document.getElementById('dailyBtn');
+  if (sekarang - (d.lastDaily || 0) >= sehari) {
+    btn.disabled = false;
+    btn.textContent = 'KLAIM';
+    document.getElementById('dailyAmt').textContent = formatRp(DAILY_BONUS);
+  } else {
+    btn.disabled = true;
+    const sisa = sehari - (sekarang - d.lastDaily);
+    const jam = Math.floor(sisa / 3600000);
+    const menit = Math.floor((sisa % 3600000) / 60000);
+    btn.textContent = '⏳ ' + jam + 'j ' + menit + 'm';
+    document.getElementById('dailyAmt').textContent = formatRp(DAILY_BONUS);
   }
-  return weights.length - 1;
+}
+
+function klaimDaily() {
+  const users = muatPengguna();
+  const d = users[sesi];
+  if (!d) return;
+  const sekarang = Date.now();
+  const sehari = 24 * 60 * 60 * 1000;
+  if (sekarang - (d.lastDaily || 0) < sehari) {
+    tampilkanNotif('⏳ Bonus harian belum siap', true);
+    return;
+  }
+  d.saldo += DAILY_BONUS;
+  d.lastDaily = sekarang;
+  users[sesi] = d;
+  simpanPengguna(users);
+  perbaruiUI();
+  cekDailyBonus();
+  tampilkanNotif('🎁 Bonus harian +' + formatRp(DAILY_BONUS) + '!');
+  suaraMenang();
+  tembakKonfeti();
 }
 
 /* ================= RIWAYAT ================= */
@@ -813,145 +833,181 @@ function renderRiwayat() {
   if (!d) return;
   const list = document.getElementById('histList');
   const hist = (d.history || []).slice(-10).reverse();
-
   if (hist.length === 0) {
-    list.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:12px">Belum ada riwayat putaran</div>';
+    list.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:11px;padding:10px">Belum ada riwayat</div>';
     return;
   }
-
   list.innerHTML = hist.map(h => `
     <div class="hist-item ${h.win ? 'win' : 'lose'}">
-      <span class="hist-syms">${h.syms}</span>
-      <span class="hist-res ${h.win ? 'win' : 'lose'}">
-        ${h.win ? '+' + formatRp(h.prize) : '-' + formatRp(h.bet)}
-      </span>
+      <span>${h.syms}</span>
+      <span class="hist-res ${h.win ? 'win' : 'lose'}">${h.win ? '+' + formatRp(h.prize) : '-' + formatRp(h.bet)}</span>
     </div>
   `).join('');
 }
 
-/* ================= PUTARAN ZEUS ================= */
-async function putarZeus() {
-  const users = muatPengguna();
-  const d = users[sesi];
-  const peluangMenang = d.saldo < 50000 ? 0.03 : 0.49;
-  const akanMenang = Math.random() < peluangMenang;
-
-  let hasil;
-  if (akanMenang) {
-    const bobotMenang = [1, 3, 8, 10, 12, 12, 14];
-    const tot = bobotMenang.reduce((a,b) => a+b, 0);
-    let r = Math.random() * tot;
-    let idxMenang = 0;
-    for (let i = 0; i < bobotMenang.length; i++) {
-      r -= bobotMenang[i];
-      if (r <= 0) { idxMenang = i; break; }
-    }
-    hasil = [idxMenang, idxMenang, idxMenang];
-  } else {
-    do {
-      hasil = [acakBerbobot(ZEUS_WEIGHTS), acakBerbobot(ZEUS_WEIGHTS), acakBerbobot(ZEUS_WEIGHTS)];
-    } while (hasil[0] === hasil[1] && hasil[1] === hasil[2]);
-  }
-
-  const reels = [document.getElementById('r0'), document.getElementById('r1'), document.getElementById('r2')];
-  reels.forEach(r => { r.classList.remove('win-glow'); r.classList.add('spinning'); });
-
-  await new Promise(res => setTimeout(res, 700));
-
-  for (let i = 0; i < 3; i++) {
-    reels[i].classList.remove('spinning');
-    reels[i].textContent = ZEUS_SYMS[hasil[i]];
-    await new Promise(res => setTimeout(res, 120));
-  }
-
-  const menang = hasil[0] === hasil[1] && hasil[1] === hasil[2];
-
-  let zeusMult = 1;
-  if (menang && Math.random() < 0.3) {
-    zeusMult = [2, 5, 10, 50, 100][Math.floor(Math.random() * 5)];
-  }
-
-  return {
-    menang,
-    syms: ZEUS_SYMS[hasil[0]] + ZEUS_SYMS[hasil[1]] + ZEUS_SYMS[hasil[2]],
-    mult: menang ? ZEUS_MULTS[hasil[0]] * zeusMult : 0,
-    zeusMult: zeusMult > 1 ? zeusMult : 0
-  };
+/* ================= LOGIKA DASAR ================= */
+function pilihRate() {
+  return RATE_PILIHAN[Math.floor(Math.random() * RATE_PILIHAN.length)];
 }
 
-/* ================= PUTARAN MAHJONG ================= */
-async function putarMahjong() {
-  const users = muatPengguna();
-  const d = users[sesi];
-  const peluangMenang = d.saldo < 50000 ? 0.03 : 0.49;
-  const akanMenang = Math.random() < peluangMenang;
-
-  let hasil;
-  if (akanMenang) {
-    const bobotMenang = [2, 5, 8, 10, 12, 14, 15];
-    const tot = bobotMenang.reduce((a,b) => a+b, 0);
-    let r = Math.random() * tot;
-    let idxMenang = 0;
-    for (let i = 0; i < bobotMenang.length; i++) {
-      r -= bobotMenang[i];
-      if (r <= 0) { idxMenang = i; break; }
-    }
-    hasil = [idxMenang, idxMenang, idxMenang];
-  } else {
-    do {
-      hasil = [acakBerbobot(MJ_WEIGHTS), acakBerbobot(MJ_WEIGHTS), acakBerbobot(MJ_WEIGHTS)];
-    } while (hasil[0] === hasil[1] && hasil[1] === hasil[2]);
-  }
-
-  const reels = [document.getElementById('r0'), document.getElementById('r1'), document.getElementById('r2')];
-  reels.forEach(r => { r.classList.remove('win-glow'); r.classList.add('spinning'); });
-
-  await new Promise(res => setTimeout(res, 700));
-
-  for (let i = 0; i < 3; i++) {
-    reels[i].classList.remove('spinning');
-    reels[i].textContent = MJ_SYMS[hasil[i]];
-    await new Promise(res => setTimeout(res, 120));
-  }
-
-  const menang = hasil[0] === hasil[1] && hasil[1] === hasil[2];
-
-  let ladderMult = 1;
-  if (menang) {
-    const tumbles = Math.floor(Math.random() * 3);
-    ladderMult = MJ_MULT_LADDER[Math.min(tumbles, 3)];
-  }
-
-  let bonusEmas = 0;
-  if (menang && Math.random() < 0.15) {
-    bonusEmas = taruhan * 5;
-  }
-
-  return {
-    menang,
-    syms: MJ_SYMS[hasil[0]] + MJ_SYMS[hasil[1]] + MJ_SYMS[hasil[2]],
-    mult: menang ? (hasil[0] === 0 ? 50 : hasil[0] === 1 ? 20 : hasil[0] === 2 ? 10 : 5) * ladderMult : 0,
-    bonusEmas,
-    ladderMult
-  };
+// Hitung frekuensi simbol di grid
+function hitungFrekuensi(grid) {
+  const freq = {};
+  grid.forEach(s => freq[s] = (freq[s] || 0) + 1);
+  return freq;
 }
 
-/* ================= PUTARAN UTAMA ================= */
+// Zeus: menang kalau ada 8+ simbol sama
+function cekZeusWin(grid) {
+  const freq = hitungFrekuensi(grid);
+  let bestSym = -1, bestCount = 0;
+  for (const [sym, count] of Object.entries(freq)) {
+    if (count >= 8 && count > bestCount) {
+      bestSym = parseInt(sym);
+      bestCount = count;
+    }
+  }
+  return { menang: bestSym >= 0, winSymbol: bestSym, winCount: bestCount };
+}
+
+// Mahjong: menang kalau ada 3+ ubin sama
+function cekMahjongWin(grid) {
+  const freq = hitungFrekuensi(grid);
+  let bestSym = -1, bestCount = 0;
+  for (const [sym, count] of Object.entries(freq)) {
+    if (count >= 3 && count > bestCount) {
+      bestSym = parseInt(sym);
+      bestCount = count;
+    }
+  }
+  return { menang: bestSym >= 0, winSymbol: bestSym, winCount: bestCount };
+}
+
+
+function buatGridMenang(rate) {
+  const syms = permainanSekarang === 'zeus' ? ZEUS_SYMS : MJ_SYMS;
+  const weights = permainanSekarang === 'zeus' ? ZEUS_WEIGHTS : MJ_WEIGHTS;
+  const minWin = permainanSekarang === 'zeus' ? 8 : 3;
+  const grid = [];
+  const winSymbol = acakBerbobot(weights.slice(0, 5));
+  const winCount = minWin + Math.floor(Math.random() * (minWin === 8 ? 5 : 3));
+
+  for (let i = 0; i < TOTAL_CELLS; i++) grid[i] = -1;
+  let placed = 0;
+  while (placed < winCount) {
+    const pos = Math.floor(Math.random() * TOTAL_CELLS);
+    if (grid[pos] === -1) { grid[pos] = winSymbol; placed++; }
+  }
+  // Selipkan scatter
+  const scatterCount = Math.random() < 0.15 ? 4 : 0;
+  for (let i = 0; i < scatterCount; i++) {
+    const pos = Math.floor(Math.random() * TOTAL_CELLS);
+    grid[pos] = -2; // -2 = scatter
+  }
+  for (let i = 0; i < TOTAL_CELLS; i++) {
+    if (grid[i] === -1) grid[i] = acakBerbobot(weights);
+  }
+  return { grid, winSymbol, winCount };
+}
+
+function buatGridKalah() {
+  const weights = permainanSekarang === 'zeus' ? ZEUS_WEIGHTS : MJ_WEIGHTS;
+  const minWin = permainanSekarang === 'zeus' ? 8 : 3;
+  const grid = [];
+  let maxFreq = 999;
+  let attempts = 0;
+  do {
+    grid.length = 0;
+    for (let i = 0; i < TOTAL_CELLS; i++) {
+      grid.push(acakBerbobot(weights));
+    }
+    const freq = hitungFrekuensi(grid);
+    maxFreq = Math.max(...Object.values(freq));
+    attempts++;
+  } while (maxFreq >= minWin && attempts < 100);
+  return { grid, winSymbol: -1, winCount: 0 };
+}
+
+
+function renderGridCells(hasil, animasiWin) {
+  const grid = document.getElementById('grid');
+  const cells = grid.querySelectorAll('.cell');
+  const syms = permainanSekarang === 'zeus' ? ZEUS_SYMS : MJ_SYMS;
+
+  cells.forEach((cell, i) => {
+    cell.classList.remove('win', 'tumble', 'refill', 'mult', 'scatter');
+    const val = hasil.grid[i];
+    if (val === -2) {
+      // Scatter
+      cell.textContent = permainanSekarang === 'zeus' ? '⚡' : '🔴';
+      cell.classList.add('scatter');
+    } else if (animasiWin && hasil.menang && val === hasil.winSymbol) {
+      cell.textContent = syms[val];
+      cell.classList.add('win');
+    } else {
+      cell.textContent = syms[val];
+    }
+  });
+}
+
+/* ================= ANIMASI TUMBLE ================= */
+async function animasiTumble(hasil) {
+  const grid = document.getElementById('grid');
+  const cells = grid.querySelectorAll('.cell');
+  const syms = permainanSekarang === 'zeus' ? ZEUS_SYMS : MJ_SYMS;
+
+  // 1. Tandai cell menang dengan pulse
+  cells.forEach((cell, i) => {
+    if (hasil.grid[i] === hasil.winSymbol) {
+      cell.classList.add('win');
+    }
+  });
+  await tunggu(500);
+
+  // 2. Pecahkan cell yang menang
+  cells.forEach((cell, i) => {
+    if (hasil.grid[i] === hasil.winSymbol) {
+      cell.classList.add('tumble');
+    }
+  });
+  await tunggu(400);
+
+  // 3. Isi ulang cell yang pecah dengan simbol baru
+  const weights = permainanSekarang === 'zeus' ? ZEUS_WEIGHTS : MJ_WEIGHTS;
+  cells.forEach((cell, i) => {
+    if (hasil.grid[i] === hasil.winSymbol) {
+      cell.classList.remove('tumble');
+      cell.classList.add('refill');
+      cell.textContent = syms[acakBerbobot(weights)];
+    }
+  });
+  await tunggu(400);
+
+  // 4. Bersihkan animasi
+  cells.forEach(cell => cell.classList.remove('refill', 'win'));
+}
+
+/* ================= PROSES SPIN ================= */
 async function putar() {
   if (sedangPutar || !sesi) return;
   const users = muatPengguna();
   const d = users[sesi];
   if (!d) return;
 
+  initAudio();
   document.getElementById('spinErr').textContent = '';
 
-  if (d.saldo < 50) {
-    document.getElementById('spinErr').textContent = '⚠️ Saldo tidak cukup! Minimal Rp 50 untuk putar.';
-    return;
-  }
-  if (d.saldo < taruhan) {
-    document.getElementById('spinErr').textContent = '⚠️ Saldo tidak cukup untuk taruhan ' + formatRp(taruhan);
-    return;
+  const isFreeSpin = freeSpinSisa > 0;
+
+  if (!isFreeSpin) {
+    if (d.saldo < 50) {
+      document.getElementById('spinErr').textContent = '⚠️ Saldo tidak cukup! Minimal Rp 50.';
+      return;
+    }
+    if (d.saldo < taruhan) {
+      document.getElementById('spinErr').textContent = '⚠️ Saldo tidak cukup untuk taruhan ' + formatRp(taruhan);
+      return;
+    }
   }
 
   sedangPutar = true;
@@ -959,77 +1015,138 @@ async function putar() {
   spinBtn.disabled = true;
   const winBadge = document.getElementById('winBadge');
   winBadge.className = 'win-badge idle';
+  winBadge.textContent = isFreeSpin
+    ? '🎰 FREE SPIN (' + freeSpinSisa + ' tersisa)...'
+    : (permainanSekarang === 'zeus' ? '⚡ Zeus sedang melempar kilat...' : '🀄 Mengocok ubin...');
 
-  if (permainanSekarang === 'zeus') {
-    winBadge.textContent = '⚡ Zeus sedang melempar kilat...';
+  // Potong saldo (kecuali free spin)
+  if (!isFreeSpin) {
+    d.saldo -= taruhan;
+    d.totalBet = (d.totalBet || 0) + taruhan;
   } else {
-    winBadge.textContent = '🀄 Mengocok ubin...';
+    freeSpinSisa--;
   }
-
-  d.saldo -= taruhan;
   d.spin++;
   users[sesi] = d;
   simpanPengguna(users);
   perbaruiUI();
 
+  // Suara spin
+  if (suaraAktif) suaraSpin();
+
+  // Animasi spin semua cell
+  const grid = document.getElementById('grid');
+  const cells = grid.querySelectorAll('.cell');
+  cells.forEach(c => c.classList.add('spin'));
+  await tunggu(800);
+  cells.forEach(c => c.classList.remove('spin'));
+
+  // Tentukan hasil
+  const rateMenang = pilihRate();
+  const MENANG = Math.random() < rateMenang;
+
   let hasil;
-  if (permainanSekarang === 'zeus') {
-    hasil = await putarZeus();
+  if (MENANG) {
+    hasil = buatGridMenang(rateMenang);
   } else {
-    hasil = await putarMahjong();
+    hasil = buatGridKalah();
   }
 
+  // Render hasil
+  renderGridCells(hasil, true);
+  await tunggu(300);
+
+  // Efek tumble
+  if (MENANG) {
+    await animasiTumble(hasil);
+  }
+
+  // Cek scatter untuk free spin
+  const scatterCount = hasil.grid.filter(v => v === -2).length;
+  if (scatterCount >= 4 && freeSpinSisa === 0) {
+    freeSpinSisa = FREE_SPIN_AWARDS;
+    freeSpinTotalMenang = 0;
+    document.getElementById('freeBanner').classList.add('show');
+    document.getElementById('freeCount').textContent = freeSpinSisa + 'x';
+    tampilkanNotif('🎰 SCATTER! Dapat ' + FREE_SPIN_AWARDS + 'x Free Spin!');
+    suaraScatter();
+  }
+
+  // Hitung hadiah
   const freshUsers = muatPengguna();
   const fd = freshUsers[sesi];
-
   const entriRiwayat = {
-    syms: hasil.syms,
-    bet: taruhan,
-    win: hasil.menang,
-    prize: 0,
-    game: permainanSekarang
+    syms: permainanSekarang === 'zeus' ? '⚡ Zeus' : '🀄 Mahjong',
+    bet: isFreeSpin ? 0 : taruhan,
+    win: MENANG,
+    prize: 0
   };
 
-  if (hasil.menang) {
-    let hadiah = taruhan * hasil.mult;
+  const rateInfo = ' [rate ' + Math.round(rateMenang * 100) + '%]';
 
-    if (hasil.bonusEmas) {
-      hadiah += hasil.bonusEmas;
+  if (MENANG) {
+    const payTable = permainanSekarang === 'zeus' ? ZEUS_PAY : MJ_PAY;
+    const baseMultiplier = payTable[hasil.winSymbol] || 0.5;
+    let totalMult = baseMultiplier * hasil.winCount;
+
+    let zeusBonus = 0;
+    if (permainanSekarang === 'zeus' && Math.random() < 0.4) {
+      zeusBonus = ZEUS_MULT_VALUES[Math.floor(Math.random() * ZEUS_MULT_VALUES.length)];
+      totalMult *= zeusBonus;
     }
 
+    if (permainanSekarang === 'mahjong') {
+      const ladder = MJ_MULT_LADDER[Math.floor(Math.random() * MJ_MULT_LADDER.length)];
+      totalMult *= ladder;
+    }
+
+    totalMult = Math.min(totalMult, 2500);
+    const hadiah = taruhan * totalMult;
     fd.saldo += hadiah;
-    fd.wins += 1;
+    fd.wins++;
+    fd.totalWin = (fd.totalWin || 0) + hadiah;
     entriRiwayat.prize = hadiah;
 
-    const reels = [document.getElementById('r0'), document.getElementById('r1'), document.getElementById('r2')];
-    reels.forEach(r => r.classList.add('win-glow'));
-    winBadge.className = 'win-badge win';
+    if (isFreeSpin) {
+      freeSpinTotalMenang += hadiah;
+    }
 
-    let teksMenang = '🎉 MENANG! +' + formatRp(hadiah);
-    if (permainanSekarang === 'zeus' && hasil.zeusMult > 1) {
-      teksMenang += ' ⚡ Zeus ×' + hasil.zeusMult + '!';
-    }
-    if (permainanSekarang === 'mahjong' && hasil.bonusEmas) {
-      teksMenang += ' ✨ Ubin Emas!';
-    }
-    winBadge.textContent = teksMenang;
+    winBadge.className = 'win-badge win';
+    let teks = '🎉 MENANG! +' + formatRp(hadiah) + ' (×' + totalMult.toFixed(1) + ')' + rateInfo;
+    if (zeusBonus > 1) teks += ' ⚡×' + zeusBonus;
+    if (isFreeSpin) teks = '🎰 FREE SPIN! ' + teks;
+    winBadge.textContent = teks;
     tampilkanNotif('🎉 Menang ' + formatRp(hadiah) + '!');
+    if (suaraAktif) suaraMenang();
     tembakKonfeti();
   } else {
     winBadge.className = 'win-badge lose';
-    winBadge.textContent = permainanSekarang === 'zeus'
+    winBadge.textContent = (permainanSekarang === 'zeus'
       ? '😔 Zeus belum tersenyum. Coba lagi!'
-      : '😔 Ubin belum nyambung. Coba lagi!';
+      : '😔 Ubin belum nyambung. Coba lagi!') + rateInfo;
+    if (suaraAktif) suaraKalah();
   }
 
+  // Update riwayat
   if (!fd.history) fd.history = [];
   fd.history.push(entriRiwayat);
   if (fd.history.length > 50) fd.history = fd.history.slice(-50);
-
   freshUsers[sesi] = fd;
   simpanPengguna(freshUsers);
   perbaruiUI();
   renderRiwayat();
+
+  // Update banner free spin
+  if (freeSpinSisa > 0) {
+    document.getElementById('freeCount').textContent = freeSpinSisa + 'x';
+  } else {
+    if (document.getElementById('freeBanner').classList.contains('show')) {
+      document.getElementById('freeBanner').classList.remove('show');
+      if (freeSpinTotalMenang > 0) {
+        tampilkanNotif('🎰 Free Spin selesai! Total: ' + formatRp(freeSpinTotalMenang));
+      }
+    }
+  }
 
   sedangPutar = false;
   spinBtn.disabled = false;
@@ -1037,7 +1154,7 @@ async function putar() {
 
 /* ================= KONFETI ================= */
 function tembakKonfeti() {
-  const warna = ['#ffd23f','#00c853','#ffdf00','#009624','#ffffff'];
+  const warna = ['#ffd23f','#00c853','#ffdf00','#009624','#ffffff','#9c27b0'];
   for (let i = 0; i < 40; i++) {
     const c = document.createElement('div');
     c.className = 'confetti';
@@ -1050,7 +1167,7 @@ function tembakKonfeti() {
   }
 }
 
-/* ================= MASUK OTOMATIS ================= */
+/* ================= AUTO LOGIN ================= */
 window.addEventListener('DOMContentLoaded', () => {
   const tersimpan = muatSesi();
   if (tersimpan) {
@@ -1076,6 +1193,9 @@ document.addEventListener('keydown', e => {
     if (!sedangPutar) putar();
   }
 });
+setInterval(() => {
+  if (sesi) cekDailyBonus();
+}, 60000);
 </script>
 </body>
 </html>
